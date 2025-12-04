@@ -17,9 +17,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c=@1x)d%pjo^_g6qu-f#*as3(l%y5%@i9(ry-&3n-%pe+d9*!b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "tamakon.online",
+    "www.tamakon.online",
+]
+
 
 
 # Application definition
@@ -238,4 +244,5 @@ PAYPAL_SECRET_ENC_KEY= config("PAYPAL_SECRET_ENC_KEY")
 
 
 
-SITE_URL = "http://127.0.0.1:8000"
+SITE_URL = "https://tamakon.online"
+
