@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <body style="font-family:Tahoma,Arial; line-height:1.9; color:#333;">
+    <p>الزميل الفاضل أ/{{ user.get_full_name|default:user.username }}</p>
+
+    <p>السلام عليكم ورحمة الله وبركاته،</p>
+
+    <p>
+      يسعدنا ويشرفنا انضمامكم لدورة
+      <strong>{{ course.title }}</strong>،
+      ونسأل الله لكم دوام النجاح والتوفيق.
+    </p>
+
+    <p>نرفق لكم أدناه كافة البيانات الخاصة باشتراككم:</p>
+
+    <ul>
+      <li>رقم الدفع: {{ payment.id }}</li>
+      <li>نوع الاشتراك: {{ mode_label }}</li>
+      <li>المبلغ المدفوع: {{ payment.amount }} {{ payment.currency }}</li>
+      {% if payment.mode == 'installment' and payment.installment %}
+        <li>القسط المدفوع الآن: رقم {{ payment.installment.step }}</li>
+      {% endif %}
+      <li>تاريخ الدفع: {{ payment.created_at|date:"Y-m-d H:i" }}</li>
+      <li>نسبة التقدّم الحالية في الدورة: {{ progress }}%</li>
+    </ul>
+
+    {% if is_installment %}
+      <h3 style="margin-top:18px;">تفاصيل الأقساط</h3>
+
+      <p>
+        إجمالي الأقساط: {{ total_steps }} —
+        مدفوعة: {{ paid_count }} —
+        متبقية: {{ remaining_count }}
+      </p>
+
+      {% if next_due %}
+        <p style="background:#fff8e1; padding:10px; border:1px solid #ffe082; border-radius:8px;">
+          📅 القسط المستحق القادم:
+          رقم {{ next_due.step }} —
+          المبلغ: {{ next_due.amount }} {{ next_due.currency }} —
+          الاستحقاق: {{ next_due.due_date|date:"Y-m-d" }}
+        </p>
+      {% elif total_steps > 0 and all_installments_paid %}
+        <p style="background:#e6ffed; padding:10px; border:1px solid #b2f5cc; border-radius:8px;">
+          ✅ تم سداد جميع الأقساط. تهانينا!
+        </p>
+      {% endif %}
+
+      {% if installments %}
+        <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse:collapse; margin-top:8px;">
+          <thead>
+            <tr style="background:#f5f5f5; text-align:right;">
+              <th style="border:1px solid #eee;">#</th>
+              <th style="border:1px solid #eee;">المبلغ</th>
+              <th style="border:1px solid #eee;">الاستحقاق</th>
+              <th style="border:1px solid #eee;">الحالة</th>
+              <th style="border:1px solid #eee;">تاريخ السداد</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in installments %}
+              <tr>
+                <td style="border:1px solid #eee;">{{ r.step }}</td>
+                <td style="border:1px solid #eee;">{{ r.amount }} {{ r.currency }}</td>
+                <td style="border:1px solid #eee;">{{ r.due_date|date:"Y-m-d" }}</td>
+                <td style="border:1px solid #eee;">
+                  {% with s=r.status|stringformat:"s" %}
+                    {% if s|lower == "paid" %}مدفوع
+                    {% elif s|lower == "due" %}مستحق
+                    {% else %}{{ r.status }}
+                    {% endif %}
+                  {% endwith %}
+                </td>
+                <td style="border:1px solid #eee;">
+                  {% if r.paid_at %}{{ r.paid_at|date:"Y-m-d H:i" }}{% else %}—{% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    {% else %}
+      <p style="background:#e6ffed; padding:10px; border:1px solid #b2f5cc; border-radius:8px;">
+        ✅ اشتراكك “دفع كامل” مفعّل، ولديك وصول كامل لمحتوى الدورة.
+      </p>
+    {% endif %}
+
+    <p style="margin-top:18px;">
+      يمكنكم الدخول على المنصة من الرابط التالي:
+      <a href="{{ site_url|default:'http://127.0.0.1:8000' }}" style="color:#0a7; font-weight:bold;">زيارة المنصة</a>
+    </p>
+
+    <p>مع أطيب التحيات،<br>فريق منصة تمكن</p>
+  </body>
+</html>

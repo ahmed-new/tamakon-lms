@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ course.title }} - تمكن{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<!-- قسم هيرو لصفحة تفاصيل الدورة -->
+<section class="course-hero" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); min-height: 50vh; display: flex; align-items: center; position: relative; overflow: hidden;">
+  <!-- خلفية متحركة مع تأثيرات -->
+  <div class="animated-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px); 
+      background-size: 30px 30px; 
+      background-position: 0 0, 15px 15px;
+      animation: pulse 4s ease-in-out infinite alternate;"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element" style="position: absolute; top: 15%; left: 10%; width: 80px; height: 80px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; opacity: 0.15; filter: blur(20px); animation: float 8s ease-in-out infinite;"></div>
+    <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 100px; height: 100px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; opacity: 0.15; filter: blur(25px); animation: float 12s ease-in-out infinite reverse;"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line" style="position: absolute; top: 40%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent); transform: rotate(-5deg); animation: pulse 3s ease-in-out infinite alternate;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="hero-content" style="max-width: 900px; margin: 0 auto; padding: 3rem 0;">
+      <!-- شعار متحرك -->
+      <div class="hero-badge" style="display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem; animation: fadeInDown 1s ease-out;">
+        <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">دورة تعليمية</span>
+      </div>
+      
+      <h1 class="hero-title" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glow 2s ease-in-out infinite alternate; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+        {{ course.title }}
+      </h1>
+      
+      {% if course.description %}
+      <div class="course-description" style="color: #e2e8f0; font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 800px;">
+        {{ course.description }}
+      </div>
+      {% endif %}
+      
+      {% if course.has_certificate %}
+      <div class="certificate-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1.5rem;">
+        <span style="font-size: 1.2rem;">🎓</span>
+        <span style="color: #22c55e; font-weight: 600;">عند الإتمام تحصل على شهادة معتمدة</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- أشكال هندسية للزينة -->
+  <div class="decorative-shape" style="position: absolute; bottom: -50px; left: 0; width: 100%; height: 100px; background: #0f0f23; transform: skewY(-3deg); z-index: 3;"></div>
+</section>
+
+<!-- قسم معلومات الاشتراك -->
+<section class="enrollment-section" style="background: #0f0f23; padding: 3rem 0 2rem; position: relative; z-index: 4;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="enrollment-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 2rem; backdrop-filter: blur(10px); position: relative; overflow: hidden; margin-bottom: 2rem;">
+      <!-- زخارف البطاقة -->
+      <div class="card-decoration" style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); border-radius: 50%; filter: blur(15px);"></div>
+      <div class="card-decoration" style="position: absolute; bottom: -20px; left: -20px; width: 80px; height: 80px; background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05)); border-radius: 50%; filter: blur(15px);"></div>
+      
+      <div class="enrollment-info" style="display: flex; flex-wrap: wrap; gap: 2rem; position: relative; z-index: 2;">
+        <!-- معلومات السعر -->
+        <div class="price-info" style="flex: 1; min-width: 250px;">
+          <div class="price-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <div class="price-badge" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+              <span style="font-size: 1.5rem; opacity: 0.8;">💰</span>
+              <h3 style="margin: 0; font-size: 1.2rem; color: #e2e8f0;">السعر الكامل</h3>
+            </div>
+            
+            <div class="price-value" style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+              {{ course.price }} {{ currency }}
+            </div>
+            
+            {% if allow_installments and installments_count > 1 and installment_price %}
+            <div class="installment-info" style="color: #a0aec0; display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+              <span style="font-size: 1.2rem;">📅</span>
+              <div>
+                <div>إمكانية الدفع على {{ installments_count }} أقساط</div>
+                <div style="font-weight: 600; color: #ffd700; margin-top: 0.3rem;">القسط: {{ installment_price }} {{ currency }}</div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        
+        <!-- أزرار الاشتراك -->
+        <div class="enrollment-actions" style="flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: center;">
+          {% if user.is_authenticated and enrollment %}
+            {% if enrollment.mode == 'full' or installments_count <= 1 %}
+              <div class="enrollment-status" style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem;">
+                  <span style="font-size: 1.5rem;">✅</span>
+                  <h3 style="margin: 0; font-size: 1.2rem; color: #22c55e;">أنت مشترك بالفعل في هذه الدورة</h3>
+                </div>
+                <div style="color: #a0aec0; margin-top: 0.5rem;">
+                  <span style="opacity: 0.8;">تاريخ الاشتراك:</span> 
+                  <span style="color: #e2e8f0;">{{ enrollment.created_at|date:"Y-m-d" }}</span>
+                </div>
+              </div>
+              
+              <a href="#course-content" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2rem; border-radius: 50px; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #0f0f23; text-decoration: none; font-weight: 600; box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2); transition: all 0.3s ease; text-align: center;">
+                <span>📚</span>
+                <span>ابدأ التعلم الآن</span>
+              </a>
+            {% else %}
+              <div class="enrollment-status" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem;">
+                  <span style="font-size: 1.5rem;">📅</span>
+                  <h3 style="margin: 0; font-size: 1.2rem; color: #60a5fa;">اشتراكك بالتقسيط مفعل</h3>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+                  <div style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; color: #a0aec0;">
+                    <span>إجمالي الأقساط:</span> 
+                    <span style="color: #e2e8f0; font-weight: 600;">{{ installments_count }}</span>
+                  </div>
+                  <div style="background: rgba(34, 197, 94, 0.1); padding: 0.5rem 1rem; border-radius: 8px; color: #a0aec0;">
+                    <span>مدفوعة:</span> 
+                    <span style="color: #22c55e; font-weight: 600;">{{ paid_installments }}</span>
+                  </div>
+                  <div style="background: rgba(245, 158, 11, 0.1); padding: 0.5rem 1rem; border-radius: 8px; color: #a0aec0;">
+                    <span>متبقية:</span> 
+                    <span style="color: #f59e0b; font-weight: 600;">{{ remaining_installments }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="#course-content" class="btn-primary" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 1.5rem; border-radius: 50px; background: rgba(255, 215, 0, 0.1); color: #ffd700; border: 1px solid rgba(255, 215, 0, 0.3); text-decoration: none; font-weight: 600; transition: all 0.3s ease; text-align: center;">
+                  <span>📚</span>
+                  <span>ابدأ التعلم</span>
+                </a>
+                
+                {% if next_due_step %}
+                <a href="{% url 'commerce:checkout' course.slug %}?mode=installment&step={{ next_due_step }}" class="btn-secondary" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 1.5rem; border-radius: 50px; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #0f0f23; text-decoration: none; font-weight: 600; box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2); transition: all 0.3s ease; text-align: center;">
+                  <span>💳</span>
+                  <span>ادفع القسط {{ next_due_step }}</span>
+                </a>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% else %}
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <a href="{% url 'commerce:checkout' course.slug %}?mode=full" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2rem; border-radius: 50px; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #0f0f23; text-decoration: none; font-weight: 600; box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2); transition: all 0.3s ease; text-align: center;">
+                <span>🚀</span>
+                <span>اشترك الآن (دفع كامل) — {{ course.price }} {{ currency }}</span>
+              </a>
+              
+              {% if allow_installments and installments_count > 1 and installment_price %}
+              <a href="{% url 'commerce:checkout' course.slug %}?mode=installment&step=1" class="btn-secondary" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2rem; border-radius: 50px; background: rgba(255, 215, 0, 0.1); color: #ffd700; border: 1px solid rgba(255, 215, 0, 0.3); text-decoration: none; font-weight: 600; transition: all 0.3s ease; text-align: center;">
+                <span>💳</span>
+                <span>ادفع القسط الأول — {{ installment_price }} {{ currency }}</span>
+              </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم محتوى الدورة -->
+<section id="course-content" class="course-content-section" style="background: #0f0f23; padding: 2rem 0 6rem; position: relative; z-index: 4;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <h2 class="section-title" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; text-align: center; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+      محتوى الدورة
+    </h2>
+    
+    {% if parts %}
+      <div class="course-parts" style="display: flex; flex-direction: column; gap: 2rem;">
+        {% for part in parts %}
+          <div class="course-part" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; overflow: hidden; animation: fadeIn 0.5s ease-out {{ forloop.counter|divisibleby:3 }}s both;">
+            <div class="part-header" style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="margin: 0; font-size: 1.5rem; color: #e2e8f0; display: flex; align-items: center; gap: 0.8rem;">
+                <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                  جزء {{ part.get_code_display }}
+                </span>
+                <span style="color: #e2e8f0;">—</span>
+                <span>{{ part.title }}</span>
+              </h3>
+              
+              {% if user.is_authenticated %}
+                {% if part.id in open_part_ids %}
+                  <span style="font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 50px; background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); display: flex; align-items: center; gap: 0.3rem;">
+                    <span>✅</span>
+                    <span>مفتوح لك</span>
+                  </span>
+                {% else %}
+                  <span style="font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 50px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); display: flex; align-items: center; gap: 0.3rem;">
+                    <span>🔒</span>
+                    <span>مقفول</span>
+                  </span>
+                {% endif %}
+              {% endif %}
+            </div>
+            
+            {% if part.description %}
+              <div class="part-description" style="padding: 1rem 1.5rem; color: #a0aec0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                {{ part.description }}
+              </div>
+            {% endif %}
+            
+            {% if part.chapters.all %}
+              <div class="part-chapters" style="padding: 0.5rem;">
+                {% for chapter in part.chapters.all %}
+                  <details class="chapter-details" style="margin: 0.5rem; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; overflow: hidden;">
+                    <summary style="padding: 1rem 1.5rem; cursor: pointer; background: rgba(255, 255, 255, 0.02); display: flex; justify-content: space-between; align-items: center;">
+                      <div style="display: flex; align-items: center; gap: 0.5rem; color: #e2e8f0; font-weight: 600;">
+                        <span style="font-size: 1.2rem; opacity: 0.7; color: #ffd700;">📘</span>
+                        <span>{{ chapter.title }}</span>
+                      </div>
+                      <span style="color: #ffd700; font-size: 1.2rem; transition: transform 0.3s ease;">⌄</span>
+                    </summary>
+                    
+                    <div class="chapter-content" style="padding: 1rem 1.5rem;">
+                      <div class="chapter-actions" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                        {% if chapter.summary_pdf_url %}
+                          <a href="{{ chapter.summary_pdf_url }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 50px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                            <span>📄</span>
+                            <span>ملخص PDF</span>
+                          </a>
+                        {% endif %}
+                        
+                        <a href="{% url 'learning:chapter_quiz' chapter.pk %}" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 50px; background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                          <span>📝</span>
+                          <span>بدء اختبار الفصل</span>
+                        </a>
+                      </div>
+                      
+                      {% if chapter.topics.all %}
+                        <div class="chapter-topics" style="display: flex; flex-direction: column; gap: 1rem;">
+                          {% for topic in chapter.topics.all %}
+                            <div class="topic-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1rem;">
+                              <h4 style="margin: 0 0 0.8rem 0; color: #e2e8f0; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <span style="font-size: 1rem; opacity: 0.7; color: #ffd700;">📚</span>
+                                <span>{{ topic.title }}</span>
+                              </h4>
+                              
+                              {% if topic.lessons.all %}
+                                <ul class="lessons-list" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+                                  {% for lesson in topic.lessons.all %}
+                                    <li style="background: rgba(255, 255, 255, 0.01); border-radius: 8px; transition: all 0.3s ease;">
+                                      <a href="{% url 'learning:lesson_detail' lesson.pk %}" style="padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #e2e8f0;">
+                                        <span style="font-size: 1rem; opacity: 0.7;">
+                                          {% if lesson.is_free_preview %}🔓{% else %}🔒{% endif %}
+                                        </span>
+                                        <span>{{ lesson.title }}</span>
+                                        <span style="margin-right: auto; font-size: 1rem; color: #ffd700;">→</span>
+                                      </a>
+                                    </li>
+                                  {% empty %}
+                                    <li style="padding: 0.8rem 1rem; color: #a0aec0; text-align: center;">لا توجد دروس بعد.</li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </div>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        <p style="color: #a0aec0; text-align: center; padding: 1rem;">لا توجد مواضيع بعد.</p>
+                      {% endif %}
+                    </div>
+                  </details>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div style="padding: 2rem; text-align: center; color: #a0aec0;">
+                <p>لا توجد فصول لهذا الجزء بعد.</p>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="no-parts" style="text-align: center; padding: 4rem 0;">
+        <div class="empty-icon" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;">📚</div>
+        <h3 style="color: #e2e8f0; margin-bottom: 1rem;">لا توجد أجزاء فعّالة لهذه الدورة</h3>
+        <p style="color: #a0aec0; max-width: 500px; margin: 0 auto;">سيتم إضافة محتوى الدورة قريباً. يرجى التحقق مرة أخرى لاحقاً.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- أنيميشن CSS -->
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+  }
+  
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
+    50% { text-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* تأثيرات التفاعل */
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(255, 215, 0, 0.2);
+  }
+  
+  .chapter-details summary:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .chapter-details[open] summary span:last-child {
+    transform: rotate(180deg);
+  }
+  
+  .lessons-list li:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .chapter-actions a:hover {
+    transform: translateY(-2px);
+  }
+</style>
+{% endblock %}

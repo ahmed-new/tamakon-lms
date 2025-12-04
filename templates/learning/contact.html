@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}تواصل معنا{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<!-- قسم هيرو لصفحة التواصل -->
+<section class="contact-hero" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); padding: 2rem 0; position: relative; overflow: hidden;">
+  <!-- خلفية متحركة مع تأثيرات -->
+  <div class="animated-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px); 
+      background-size: 30px 30px; 
+      background-position: 0 0, 15px 15px;
+      animation: pulse 4s ease-in-out infinite alternate;"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element" style="position: absolute; top: 15%; left: 10%; width: 60px; height: 60px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; opacity: 0.15; filter: blur(20px); animation: float 8s ease-in-out infinite;"></div>
+    <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; opacity: 0.15; filter: blur(25px); animation: float 12s ease-in-out infinite reverse;"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line" style="position: absolute; top: 40%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent); transform: rotate(-5deg); animation: pulse 3s ease-in-out infinite alternate;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="hero-content" style="max-width: 900px; margin: 0 auto; padding: 1rem 0; text-align: center;">
+      <!-- شعار متحرك -->
+      <div class="hero-badge" style="display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem; animation: fadeInDown 1s ease-out;">
+        <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">تواصل معنا</span>
+      </div>
+      
+      <h1 class="hero-title" style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glow 2s ease-in-out infinite alternate; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+        تواصل معنا
+      </h1>
+      
+      <p class="hero-description" style="color: #e2e8f0; font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+        يسعدنا تواصلك معنا. املأ الحقول التالية وسنرد عليك في أقرب وقت ممكن.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- قسم نموذج التواصل -->
+<section class="contact-form-section" style="background: #0f0f23; padding: 2rem 0 4rem; position: relative; z-index: 4;">
+  <div class="container" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+    <div id="contact-form-box">
+      {# أول تحميل: ندرج الفورم، وبعدها HTMX هيتولى التبديل بنفس الـ div #}
+      {% include "learning/_contact_form.html" %}
+    </div>
+  </div>
+</section>
+
+<style>
+/* تحريك العناصر */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* توهج العناصر */
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3)); }
+  50% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5)); }
+  100% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3)); }
+}
+
+/* نبض العناصر */
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.3; }
+}
+
+/* ظهور العناصر */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+{% endblock %}

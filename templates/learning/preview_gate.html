@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}الوصول للمعاينة المجانية - تمكن{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<!-- قسم هيرو لصفحة بوابة المعاينة -->
+<section class="preview-gate-hero" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); padding: 2rem 0; position: relative; overflow: hidden;">
+  <!-- خلفية متحركة مع تأثيرات -->
+  <div class="animated-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px); 
+      background-size: 30px 30px; 
+      background-position: 0 0, 15px 15px;
+      animation: pulse 4s ease-in-out infinite alternate;"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element" style="position: absolute; top: 15%; left: 10%; width: 60px; height: 60px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; opacity: 0.15; filter: blur(20px); animation: float 8s ease-in-out infinite;"></div>
+    <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; opacity: 0.15; filter: blur(25px); animation: float 12s ease-in-out infinite reverse;"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line" style="position: absolute; top: 40%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent); transform: rotate(-5deg); animation: pulse 3s ease-in-out infinite alternate;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="hero-content" style="max-width: 900px; margin: 0 auto; padding: 1rem 0; text-align: center;">
+      <!-- شعار متحرك -->
+      <div class="hero-badge" style="display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem; animation: fadeInDown 1s ease-out;">
+        <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">معاينة مجانية</span>
+      </div>
+      
+      <h1 class="hero-title" style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glow 2s ease-in-out infinite alternate; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+        الوصول للمعاينة المجانية
+      </h1>
+      
+      <p class="hero-description" style="color: #e2e8f0; font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+        قبل مشاهدة هذا الدرس المجاني، من فضلك أدخل بريدك الإلكتروني للوصول الفوري إلى المحتوى التعليمي القيم.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- قسم نموذج المعاينة -->
+<section class="preview-form-section" style="background: #0f0f23; padding: 2rem 0 4rem; position: relative; z-index: 4;">
+  <div class="container" style="max-width: 500px; margin: 0 auto; padding: 0 20px;">
+    <div class="form-card" style="background: rgba(255, 255, 255, 0.03); border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 2rem; position: relative; overflow: hidden; animation: fadeIn 0.5s ease-out;">
+      <!-- زخارف البطاقة -->
+      <div class="card-decoration" style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: linear-gradient(45deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02)); border-radius: 50%; filter: blur(15px);"></div>
+      <div class="card-decoration" style="position: absolute; bottom: -30px; left: -30px; width: 80px; height: 80px; background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.02)); border-radius: 50%; filter: blur(15px);"></div>
+      
+      <form method="post" class="preview-form" style="position: relative; z-index: 2;">
+        {% csrf_token %}
+        
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label for="email" style="display: block; margin-bottom: 0.5rem; color: #a5b4fc; font-weight: 600;">البريد الإلكتروني</label>
+          <div class="input-wrapper" style="position: relative;">
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required 
+              placeholder="example@email.com" 
+              style="width: 100%; padding: 0.8rem 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0; font-size: 1rem; transition: all 0.3s ease; outline: none;"
+              onFocus="this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.boxShadow='0 0 0 2px rgba(255, 215, 0, 0.1)';"
+              onBlur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.boxShadow='none';"
+            >
+          </div>
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label for="name" style="display: block; margin-bottom: 0.5rem; color: #a5b4fc; font-weight: 600;">الاسم (اختياري)</label>
+          <div class="input-wrapper" style="position: relative;">
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              placeholder="اسمك" 
+              style="width: 100%; padding: 0.8rem 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0; font-size: 1rem; transition: all 0.3s ease; outline: none;"
+              onFocus="this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.boxShadow='0 0 0 2px rgba(255, 215, 0, 0.1)';"
+              onBlur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.boxShadow='none';"
+            >
+          </div>
+        </div>
+        
+        <button 
+          type="submit" 
+          class="submit-button" 
+          style="width: 100%; padding: 0.8rem 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e); border: none; border-radius: 8px; color: #0f0f23; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); position: relative; overflow: hidden;"
+          onMouseOver="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(255, 215, 0, 0.4)';"
+          onMouseOut="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(255, 215, 0, 0.3)';"
+        >
+          <span style="position: relative; z-index: 2;">مشاهدة الدرس</span>
+          <div class="button-glow" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent); transform: translateX(-100%); transition: transform 0.5s ease;"></div>
+        </button>
+      </form>
+      
+      <div class="privacy-note" style="margin-top: 1.5rem; text-align: center; color: #a0aec0; font-size: 0.9rem;">
+        لن نقوم بمشاركة بياناتك مع أي طرف ثالث. نستخدم بريدك الإلكتروني فقط لإرسال محتوى تعليمي قيم.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- تعريفات CSS للرسوم المتحركة -->
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @keyframes glow {
+    0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+    100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2); }
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  .submit-button:hover .button-glow {
+    transform: translateX(100%);
+  }
+</style>
+{% endblock %}

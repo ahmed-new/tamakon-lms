@@ -1,0 +1,27 @@
+{% comment %} expects var: tbl (title, columns, rows, note) {% endcomment %}
+{% if tbl.title %}<p><strong>{{ tbl.title }}</strong></p>{% endif %}
+
+<div style="overflow:auto; max-width:100%;">
+  <table style="width:100%; border-collapse:collapse; border:1px solid #ddd;">
+    <thead>
+      <tr>
+        {% for c in tbl.columns %}
+          <th style="border:1px solid #ddd; padding:6px; background:#f7f7f9; text-align:right;">{{ c }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in tbl.rows %}
+        <tr>
+          {% for cell in row %}
+            <td style="border:1px solid #eee; padding:6px; text-align:right;">{{ cell }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if tbl.note %}
+  <p style="color:#666; font-size:12px; margin-top:6px;">ملاحظة: {{ tbl.note }}</p>
+{% endif %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}إرسال دفعة{% endblock %}
+
+{% block content %}
+<h1>📤 إرسال دفعة</h1>
+
+<p>الحملة: <strong>{{ camp.subject }}</strong></p>
+<p>الحالة: {{ camp.get_status_display }}</p>
+<p>التقدّم: {{ camp.sent_count }} / {{ camp.total_targets }}</p>
+
+{% if camp.status == "sending" %}
+  <form method="post" action="{% url 'marketing:bulk_email_send' camp.id %}">
+    {% csrf_token %}
+    <button class="btn" style="background:#16a34a;color:#fff;">
+      ▶️ أرسل الدفعة التالية ({{ batch_size }})
+    </button>
+  </form>
+{% else %}
+  <p style="color:#16a34a; font-weight:bold; margin-top:12px;">✅ اكتملت الحملة.</p>
+  <a href="{% url 'marketing:bulk_email_compose' %}" class="btn" style="background:#1d4ed8;color:#fff;">
+    ⬅️ عودة إلى الحملات
+  </a>
+{% endif %}
+{% endblock %}

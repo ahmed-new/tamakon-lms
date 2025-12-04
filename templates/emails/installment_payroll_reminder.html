@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <body style="font-family:Tahoma,Arial; line-height:1.9; color:#333;">
+    <p>الزميل الفاضل أ/{{ user.get_full_name|default:user.username }}</p>
+
+    <p>السلام عليكم ورحمة الله وبركاته،</p>
+
+    <p>
+      نذكّركم بأن لديكم قسطًا مستحقًا لدورة
+      <strong>{{ enrollment.course.title }}</strong>
+      خلال هذا الشهر.
+    </p>
+
+    <ul>
+      <li>رقم القسط: {{ inst.step }}</li>
+      <li>المبلغ: {{ inst.amount }} {{ inst.currency|default:"USD" }}</li>
+      <li>تاريخ الاستحقاق: {{ inst.due_date|date:"Y-m-d" }}</li>
+    </ul>
+
+    <p>
+      ننصح بالسداد مبكرًا قبل يوم 28 لضمان استمرار الوصول للمحتوى.
+    </p>
+
+    <p>
+      يُمكنكم السداد من خلال المنصة:
+      <a href="{{ site_url }}" style="color:#0a7; font-weight:bold;">زيارة المنصة</a>
+    </p>
+
+    <p>مع أطيب التحيات،<br>فريق منصة تمكن</p>
+  </body>
+</html>

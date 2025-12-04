@@ -1,0 +1,718 @@
+<!-- templates/learning/bunny_upload.html -->
+{% extends "base.html" %}
+{% block title %}رفع فيديو إلى Vimeo{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block extra_head %}
+<style>
+  .container, section { background: transparent !important; }
+
+   /* خلّي صفحة الرفع كلها داكنة */
+  html, body, main { background:#0f0f23 !important; color:#e2e8f0; }
+
+  /* أي كرت/بلوك ممكن يكون واخد أبيض من الـbase */
+  .form-card,
+  .progress-card,
+  #result > div,                 /* صندوق النتيجة الذي يحتوي الإطار */
+  .card,
+  .alert,
+  .section,
+  .container > .card {
+    background: rgba(255,255,255,.03) !important;
+    border: 1px solid rgba(255,255,255,.06) !important;
+    color:#e2e8f0;
+    box-shadow: none;
+  }
+
+  /* شريط التقدّم */
+  #bar { background: rgba(255,255,255,.15) !important; }
+  #barin { background: linear-gradient(90deg,#ffd700,#ffed4e) !important; }
+
+  /* كود الرابط داخل النتيجة */
+  #embedCode { color:#10b981; background: rgba(0,0,0,.25); }
+
+  /* العناوين داخل الكروت */
+  .progress-card span,
+  .form-card label { color:#e2e8f0; }
+  body {
+    background: #0f0f23;
+    color: #e2e8f0;
+    min-height: 100vh;
+  }
+ 
+  /* تعريف الحركات المستخدمة في الصفحة */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+  
+  @keyframes glow {
+    0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+    100% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.5), 0 0 50px rgba(255, 215, 0, 0.3); }
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 1) خلفية ثابتة تغطي الصفحة كلها مهما كان الـDOM */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background: #0f0f23;   /* لون الثيم الداكن */
+  z-index: -1;           /* خلف كل شيء */
+}
+
+/* 2) غيّر أي wrappers محتمل يكون واخد خلفية بيضا من الـbase */
+body, html, main,
+.site-wrapper, .page, .page-content,
+.content, .content-wrapper {
+  background: #0f0f23 !important;
+  color: #e2e8f0;
+}
+
+/* 3) شفافية لأي سكشن/كونتينر عام أخد أبيض */
+section, .section, .container, .content > section {
+  background: transparent !important;
+}
+
+/* 4) مكونات الكروت/الأليرت لو الـbase بيديها أبيض */
+.card, .panel, .alert,
+.form-card, .progress-card, #result > div {
+  background: rgba(255,255,255,.03) !important;
+  border: 1px solid rgba(255,255,255,.06) !important;
+  color:#e2e8f0;
+  box-shadow: none;
+}
+
+/* شريط التقدّم */
+#bar { background: rgba(255,255,255,.15) !important; }
+#barin { background: linear-gradient(90deg,#ffd700,#ffed4e) !important; }
+
+/* كود الرابط */
+#embedCode { color:#10b981; background: rgba(0,0,0,.25); }
+/* خلّي body يعمل stacking context عشان ::before يبان */
+body{ position: relative; z-index: 0; }
+
+/* استهداف أي رابر أبيض محتمل */
+#app, #root, .app, .main-wrapper, .wrapper, .layout, .content-area {
+  background: #0f0f23 !important;
+}
+/* اقفل أي خلفية أو طبقة قبل/بعد على الرابر الأساسي */
+main,
+.site-content,
+.content-area,
+.page-content,
+.wrapper,
+.layout {
+  background: transparent !important;
+}
+
+main::before, main::after,
+.site-content::before, .site-content::after,
+.content-area::before, .content-area::after,
+.page-content::before, .page-content::after,
+.wrapper::before, .wrapper::after,
+.layout::before, .layout::after {
+  content: none !important;           /* لو فيه زخرفة مولّدة */
+  background: transparent !important; /* لو معمولة كخلفية */
+  box-shadow: none !important;        /* تمنع توهّج فاتح */
+}
+
+/* لو فيه Toast/Ribbon عام واخد أبيض */
+#toast-container,
+#toast-container > div {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* تأكيد إن body خلفيته فوق كل حاجة */
+body{ position:relative; z-index:0; }
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background:#0f0f23;
+  z-index:-1;
+}
+
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- قسم هيرو لصفحة رفع الفيديو -->
+<section class="hero-section" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); padding: 4rem 0; position: relative; overflow: hidden; min-height: 300px;">
+  <!-- خلفية متحركة مع تأثيرات -->
+  <div class="animated-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px); 
+      background-size: 30px 30px; 
+      background-position: 0 0, 15px 15px;
+      animation: pulse 4s ease-in-out infinite alternate;"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element" style="position: absolute; top: 15%; left: 10%; width: 60px; height: 60px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; opacity: 0.15; filter: blur(20px); animation: float 8s ease-in-out infinite;"></div>
+    <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; opacity: 0.15; filter: blur(25px); animation: float 12s ease-in-out infinite reverse;"></div>
+    <div class="floating-element" style="position: absolute; top: 30%; right: 30%; width: 40px; height: 40px; background: linear-gradient(45deg, #10b981, #059669); border-radius: 50%; opacity: 0.15; filter: blur(15px); animation: float 10s ease-in-out infinite 1s;"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line" style="position: absolute; top: 40%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent); transform: rotate(-5deg); animation: pulse 3s ease-in-out infinite alternate;"></div>
+    <div class="glowing-line" style="position: absolute; top: 65%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent); transform: rotate(2deg); animation: pulse 4s ease-in-out infinite alternate 1s;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="hero-content" style="max-width: 900px; margin: 0 auto; padding: 1rem 0; text-align: center;">
+      <!-- شعار متحرك -->
+      <div class="hero-badge" style="display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem; animation: pulse 2s infinite ease-in-out;">
+        <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">مركز الوسائط</span>
+      </div>
+      
+      <h1 class="hero-title" style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glow 2s ease-in-out infinite alternate; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+        رفع فيديو إلى Vimeo
+      </h1>
+      
+      <p class="hero-description" style="color: #e2e8f0; font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; animation: fadeIn 1s ease-out;">
+        قم برفع ملفات الفيديو الخاصة بك بسهولة وأمان
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- قسم نموذج الرفع -->
+<section class="form-section" style="background: #0f0f23; padding: 2rem 0 4rem; position: relative; z-index: 4;">
+  <div class="container" style="max-width: 700px; margin: 0 auto; padding: 0 20px;">
+    <div class="form-card" style="background: rgba(255, 255, 255, 0.03); border-radius: 16px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); padding: 2rem; position: relative; overflow: hidden; animation: fadeIn 0.5s ease-out; border: 1px solid rgba(255, 255, 255, 0.05);">
+      <!-- زخارف البطاقة -->
+      <div class="card-decoration" style="position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #ffd700, #667eea);"></div>
+      <div class="card-glow" style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05), transparent 70%); pointer-events: none;"></div>
+      
+      <!-- زخارف إضافية -->
+      <div class="decoration-circle" style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(102, 126, 234, 0.1)); filter: blur(20px); z-index: 1;"></div>
+      <div class="decoration-circle" style="position: absolute; bottom: -40px; left: -20px; width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); filter: blur(20px); z-index: 1;"></div>
+      
+      <form id="form" onsubmit="return false;" style="position: relative; z-index: 2;">
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; color: #e2e8f0; font-weight: 600;">عنوان الفيديو</label>
+          <input id="title" type="text" required style="width: 100%; padding: 0.75rem 1rem; background: rgba(15, 15, 35, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; color: #e2e8f0; font-weight: 600;">ملف الفيديو</label>
+          <div class="file-input-wrapper" style="position: relative; overflow: hidden; border-radius: 8px; border: 1px dashed rgba(255, 255, 255, 0.2); padding: 1rem; background: rgba(15, 15, 35, 0.3);">
+            <input id="file" type="file" accept="video/*" required style="width: 100%; font-size: 1rem; color: #e2e8f0;">
+          </div>
+          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.6);">* يدعم معظم صيغ الفيديو الشائعة (MP4, MOV, AVI, etc.)</p>
+        </div>
+        
+        <button id="startBtn" style="background: linear-gradient(45deg, #ffd700, #ffed4e); color: #0f0f23; border: none; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);">
+          <span style="position: relative; z-index: 2;">بدء الرفع</span>
+          <div class="btn-glow" style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8), transparent 70%); transform: scale(0); transition: transform 0.5s ease; pointer-events: none;"></div>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- قسم تقدم الرفع -->
+<div id="progress" style="display: none; max-width: 700px; margin: 1.5rem auto; padding: 0 20px;">
+  <div class="progress-card" style="background: rgba(255, 255, 255, 0.03); border-radius: 16px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); padding: 1.5rem; position: relative; overflow: hidden; animation: fadeIn 0.5s ease-out; border: 1px solid rgba(255, 255, 255, 0.05);">
+    <!-- زخارف البطاقة -->
+    <div class="card-decoration" style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #ffd700, #667eea);"></div>
+    
+    <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+      <span style="color: #b69812; font-weight: 600;">الرفع:</span>
+      <span id="pct" style="color: #ffd700; font-weight: 600;">0%</span>
+    </div>
+    <div id="bar" style="height: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);">
+      <div id="barin" style="height: 10px; width: 0; background: linear-gradient(90deg, #ffd700, #ffed4e); border-radius: 5px; transition: width 0.3s ease; box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- قسم النتيجة -->
+<div id="result" style="max-width: 700px; margin: 1.5rem auto 4rem; padding: 0 20px;"></div>
+
+<!-- إضافة أنيميشن للصفحة -->
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @keyframes glow {
+    0% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.7)); }
+    50% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.9)); }
+    100% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.7)); }
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+  }
+  
+  /* تحسينات للمدخلات */
+  input[type="text"]:focus {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+    outline: none;
+  }
+  
+  input[type="file"] {
+    cursor: pointer;
+  }
+  
+  /* تأثيرات الأزرار */
+  #startBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  }
+  
+  #startBtn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/tus-js-client@2/dist/tus.min.js"></script>
+<script>
+// إضافة أنيميشن للصفحة
+document.head.insertAdjacentHTML('beforeend', `
+  <style>
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes glow {
+      0% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.7)); }
+      50% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.9)); }
+      100% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.7)); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+    }
+    
+    #startBtn:hover .btn-glow {
+      transform: scale(1);
+      opacity: 0.2;
+    }
+  </style>
+`);
+
+document.getElementById('startBtn').addEventListener('click', async () => {
+  const file = document.getElementById('file').files[0];
+  const title = document.getElementById('title').value.trim();
+  
+  if (!file || !title) { 
+    // إظهار رسالة خطأ بتصميم متناسق
+    const errorMsg = document.createElement('div');
+    errorMsg.style.background = 'rgba(239, 68, 68, 0.1)';
+    errorMsg.style.borderRight = '4px solid #ef4444';
+    errorMsg.style.color = '#ef4444';
+    errorMsg.style.padding = '0.75rem 1rem';
+    errorMsg.style.borderRadius = '8px';
+    errorMsg.style.margin = '1rem 0';
+    errorMsg.style.animation = 'fadeIn 0.3s ease-out';
+    errorMsg.textContent = 'أدخل العنوان واختر ملفاً';
+    
+    const form = document.getElementById('form');
+    // إزالة أي رسائل خطأ سابقة
+    const existingError = form.parentNode.querySelector('.error-message');
+    if (existingError) existingError.remove();
+    
+    errorMsg.className = 'error-message';
+    form.parentNode.insertBefore(errorMsg, form.nextSibling);
+    setTimeout(() => errorMsg.remove(), 3000);
+    return;
+  }
+
+  // 1) تهيئة الرفع
+  const fd = new FormData();
+  fd.append('title', title);
+  
+  // إظهار حالة التحميل على الزر
+  const startBtn = document.getElementById('startBtn');
+  const originalText = startBtn.innerHTML;
+  startBtn.disabled = true;
+  startBtn.innerHTML = '<span class="loading-spinner"></span> جاري التهيئة...';
+  startBtn.style.opacity = '0.7';
+  
+  const initRes = await fetch("{% url 'learning:bunny_start' %}", {
+    method:'POST',
+    body: fd,
+    headers:{ 'X-CSRFToken': '{{ csrf_token }}' }
+  });
+  
+  if (!initRes.ok) { 
+    startBtn.disabled = false;
+    startBtn.innerHTML = originalText;
+    startBtn.style.opacity = '1';
+    
+    const errorMsg = document.createElement('div');
+    errorMsg.style.background = 'rgba(239, 68, 68, 0.1)';
+    errorMsg.style.borderRight = '4px solid #ef4444';
+    errorMsg.style.color = '#ef4444';
+    errorMsg.style.padding = '0.75rem 1rem';
+    errorMsg.style.borderRadius = '8px';
+    errorMsg.style.margin = '1rem 0';
+    errorMsg.style.animation = 'fadeIn 0.3s ease-out';
+    errorMsg.textContent = 'فشل إنشاء الفيديو';
+    errorMsg.className = 'error-message';
+    
+    const form = document.getElementById('form');
+    form.parentNode.insertBefore(errorMsg, form.nextSibling);
+    setTimeout(() => errorMsg.remove(), 3000);
+    return;
+  }
+  
+  const cfg = await initRes.json();
+
+  // 2) الرفع عبر TUS
+  document.getElementById('progress').style.display = 'block';
+  const bar = document.getElementById('barin'), pct = document.getElementById('pct');
+  
+  // تحديث حالة الزر مع الاحتفاظ بتعطيله أثناء الرفع
+  startBtn.innerHTML = '<span class="loading-spinner"></span> جاري الرفع...';
+
+  const upload = new tus.Upload(file, {
+    endpoint: cfg.uploadEndpoint,
+    retryDelays: [0, 3000, 5000, 10000, 20000, 60000],
+    headers: {
+      AuthorizationSignature: cfg.signature,
+      AuthorizationExpire: cfg.expire,
+      LibraryId: cfg.libraryId,
+      VideoId: cfg.videoId
+    },
+    metadata: {
+      filetype: file.type,
+      title: title
+    },
+    onError: function (error) {
+      startBtn.disabled = false;
+      startBtn.innerHTML = originalText;
+      startBtn.style.opacity = '1';
+      
+      const errorMsg = document.createElement('div');
+      errorMsg.style.background = 'rgba(239, 68, 68, 0.1)';
+      errorMsg.style.borderRight = '4px solid #ef4444';
+      errorMsg.style.color = '#ef4444';
+      errorMsg.style.padding = '0.75rem 1rem';
+      errorMsg.style.borderRadius = '8px';
+      errorMsg.style.margin = '1rem 0';
+      errorMsg.style.animation = 'fadeIn 0.3s ease-out';
+      errorMsg.textContent = 'خطأ أثناء الرفع: ' + error;
+      errorMsg.className = 'error-message';
+      
+      document.getElementById('progress').parentNode.insertBefore(errorMsg, document.getElementById('progress').nextSibling);
+      setTimeout(() => errorMsg.remove(), 5000);
+    },
+    onProgress: function (bytesUploaded, bytesTotal) {
+      const p = Math.floor(bytesUploaded / bytesTotal * 100);
+      pct.textContent = p + '%';
+      bar.style.width = p + '%';
+    },
+    onSuccess: function () {
+      // إعادة تعيين حالة الزر
+      startBtn.disabled = false;
+      startBtn.innerHTML = originalText;
+      startBtn.style.opacity = '1';
+      
+      const embedUrl = cfg.embedUrl;
+      const adminUrl = cfg.adminUrl; // ← من السيرفر
+
+      document.getElementById('result').innerHTML = `
+        <div style="background: rgba(15, 15, 35, 0.6); border-radius: 16px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); padding: 2rem; position: relative; overflow: hidden; animation: fadeIn 0.5s ease-out; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
+          <!-- شريط النجاح الأخضر في الأعلى -->
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #10b981, #059669);"></div>
+          
+          <!-- رسالة النجاح -->
+          <div style="display: flex; align-items: center; margin-bottom: 1.5rem; justify-content: flex-end;">
+            <h2 style="margin: 0; color: #10b981; font-weight: 600; font-size: 1.25rem;">تم الرفع بنجاح</h2>
+            <div style="background: #10b981; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 0.75rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+          </div>
+          
+          <!-- قسم الرابط -->
+          <div style="background: rgba(20, 20, 40, 0.4); border-radius: 10px; padding: 1rem; margin-bottom: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.05);">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+              <strong style="color: rgba(255, 255, 255, 0.9);">Embed URL:</strong>
+              <code id="embedCode" style="padding: 0.5rem 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 6px; direction: ltr; flex: 1; overflow-x: auto; white-space: nowrap; color: #10b981; font-family: monospace;">${embedUrl}</code>
+              <button id="copyBtn" type="button" style="background: linear-gradient(45deg, #3b82f6, #1d4ed8); color: white; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">نسخ الرابط</button>
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end;">
+              <a id="adminBtn" href="${adminUrl}" target="_blank" rel="noopener" style="background: linear-gradient(45deg, #1e40af, #1e3a8a); color: white; border: none; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; text-decoration: none; display: inline-flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                فتح في الأدمن
+              </a>
+            </div>
+          </div>
+          
+          <!-- حالة الفيديو -->
+          <div style="display: flex; align-items: center; background: rgba(20, 20, 40, 0.4); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="color: rgba(255, 255, 255, 0.9); font-weight: 500; margin-left: auto;">حالة الفيديو:</span>
+            <span id="statusBox" style="color: #10b981; font-weight: 600; display: flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #10b981; margin-left: 0.5rem;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              جاهز
+            </span>
+          </div>
+          
+          <!-- مشغل الفيديو -->
+          <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+            <iframe id="bunnyFrame" src="${embedUrl}" loading="lazy"
+                    style="border: 0; width: 100%; height: 508px;"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                    allowfullscreen></iframe>
+          </div>
+        </div>`;
+
+      // زر النسخ
+      const copyBtn = document.getElementById('copyBtn');
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(embedUrl);
+          copyBtn.innerHTML = 'تم النسخ <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+          setTimeout(() => copyBtn.textContent = 'نسخ الرابط', 1500);
+        } catch(e) {
+          // fallback بسيط
+          const sel = window.getSelection();
+          const range = document.createRange();
+          range.selectNode(document.getElementById('embedCode'));
+          sel.removeAllRanges();
+          sel.addRange(range);
+          document.execCommand('copy');
+          sel.removeAllRanges();
+          copyBtn.innerHTML = 'تم النسخ <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+          setTimeout(() => copyBtn.textContent = 'نسخ الرابط', 1500);
+        }
+      });
+
+      // ابدأ متابعة الحالة
+      startStatusPolling(cfg.videoId, document.getElementById('bunnyFrame'));
+    }
+  });
+
+  // استئناف إن وُجد رفع سابق
+  const previous = await upload.findPreviousUploads();
+  if (previous.length) upload.resumeFromPreviousUpload(previous[0]);
+
+  upload.start();
+});
+
+// ====== المراقبة الدورية لحالة الفيديو ======
+function isBunnyReady(info) {
+  if (typeof info.encodeProgress === 'number' && info.encodeProgress >= 100) return true;
+  if (info.transcodingStatus === 2) return true;
+  if (Array.isArray(info.availableResolutions) && info.availableResolutions.length) return true;
+  if (info.thumbnailFileName) return true;
+  return false;
+}
+
+function renderStatus(info) {
+  const box = document.getElementById('statusBox');
+  if (!box) return;
+  const p = typeof info.encodeProgress === 'number' ? info.encodeProgress : null;
+  
+  if (isBunnyReady(info)) {
+    box.textContent = 'حالة الفيديو: جاهز ✅';
+    box.style.borderRight = '4px solid #10b981';
+    box.style.animation = 'pulse 2s infinite ease-in-out';
+  } else {
+    const txt = 'جاري المعالجة…' + (p !== null ? ` (${p}%)` : '');
+    box.textContent = 'حالة الفيديو: ' + txt;
+    
+    // إضافة شريط تقدم للمعالجة إذا كان لدينا نسبة مئوية
+    if (p !== null && document.getElementById('encode-progress')) {
+      document.getElementById('encode-progress-fill').style.width = p + '%';
+      document.getElementById('encode-progress-pct').textContent = p + '%';
+    } else if (p !== null && !document.getElementById('encode-progress')) {
+      // إنشاء شريط تقدم للمعالجة إذا لم يكن موجودًا
+      const encodeProgress = document.createElement('div');
+      encodeProgress.id = 'encode-progress';
+      encodeProgress.style.background = 'rgba(255, 255, 255, 0.03)';
+      encodeProgress.style.borderRadius = '10px';
+      encodeProgress.style.padding = '1rem';
+      encodeProgress.style.marginTop = '1rem';
+      encodeProgress.style.animation = 'fadeIn 0.3s ease-out';
+      encodeProgress.innerHTML = `
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+          <span style="color: #e2e8f0; font-weight: 600;">معالجة الفيديو:</span>
+          <span id="encode-progress-pct" style="color: #f59e0b; font-weight: 600;">${p}%</span>
+        </div>
+        <div style="height: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; overflow: hidden;">
+          <div id="encode-progress-fill" style="height: 10px; width: ${p}%; background: linear-gradient(90deg, #f59e0b, #d97706); border-radius: 5px; transition: width 0.3s ease;"></div>
+        </div>
+      `;
+      box.parentNode.insertBefore(encodeProgress, box.nextSibling);
+    }
+  }
+}
+
+function startStatusPolling(videoId, iframeEl) {
+  const poll = async () => {
+    try {
+      const res = await fetch("{% url 'learning:bunny_status' '00000000-0000-0000-0000-000000000000' %}".replace('00000000-0000-0000-0000-000000000000', videoId));
+      if (!res.ok) return;
+      const info = await res.json();
+      renderStatus(info);
+      if (isBunnyReady(info)) {
+        clearInterval(timer);
+        if (iframeEl && iframeEl.src) {
+          iframeEl.src = iframeEl.src.split('#')[0].split('?')[0] + '?t=' + Date.now();
+        }
+      }
+    } catch(e) {}
+  };
+  const timer = setInterval(poll, 5000);
+  poll();
+}
+
+// إضافة تأثير التوهج للزر عند التحويم
+document.getElementById('startBtn').addEventListener('mouseenter', function() {
+  this.querySelector('.btn-glow').style.transform = 'scale(1)';
+  this.querySelector('.btn-glow').style.opacity = '0.2';
+});
+
+document.getElementById('startBtn').addEventListener('mouseleave', function() {
+  this.querySelector('.btn-glow').style.transform = 'scale(0)';
+  this.querySelector('.btn-glow').style.opacity = '0';
+});
+</script>
+
+<style id="force-dark-final">
+  /* اجبر الخلفية الداكنة على مستوى الوثيقة */
+  html, body, body.theme-dark { background: #0f0f23 !important; color: #e2e8f0; }
+
+  /* أي خلفية بيضا جاية من main أو طبقات مولّدة */
+  body.theme-dark main { background: #0f0f23 !important; }
+  body.theme-dark main::before,
+  body.theme-dark main::after,
+  .site-content::before, .site-content::after,
+  .content-area::before, .content-area::after,
+  .page-content::before, .page-content::after {
+    content: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* شفّف أي رابر عام ممكن يكون واخد أبيض من الـbase */
+  body.theme-dark section,
+  body.theme-dark .section,
+  body.theme-dark .container,
+  body.theme-dark .content,
+  body.theme-dark .wrapper,
+  body.theme-dark .page,
+  body.theme-dark .page-content {
+    background: transparent !important;
+  }
+
+  /* الكروت/الأليرت */
+  body.theme-dark .card,
+  body.theme-dark .panel,
+  body.theme-dark .alert,
+  body.theme-dark .form-card,
+  body.theme-dark .progress-card,
+  body.theme-dark #result > div {
+    background: rgba(255,255,255,.03) !important;
+    border: 1px solid rgba(255,255,255,.06) !important;
+    color:#e2e8f0 !important;
+    box-shadow: none !important;
+  }
+
+  /* شريط التقدّم + كود الرابط */
+  #bar { background: rgba(255,255,255,.15) !important; }
+  #barin { background: linear-gradient(90deg,#ffd700,#ffed4e) !important; }
+  #embedCode { color:#10b981 !important; background: rgba(0,0,0,.25) !important; }
+
+  /* أحيانًا التوست العام بيحط خلفية */
+  #toast-container, #toast-container > div {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+</style>
+
+{% endblock %}

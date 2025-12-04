@@ -1,0 +1,411 @@
+{% extends "base.html" %}
+{% block title %}نتيجة الدفع{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<style>
+  /* تأثيرات متحركة */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @keyframes glow {
+    0% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+    100% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* قسم هيرو لصفحة نتيجة الدفع */
+  .result-hero {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* خلفية متحركة مع تأثيرات */
+  .animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+    animation: pulse 4s ease-in-out infinite alternate;
+  }
+  
+  .floating-element {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(20px);
+  }
+  
+  .floating-element:nth-child(1) {
+    top: 15%;
+    left: 10%;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .floating-element:nth-child(2) {
+    top: 60%;
+    right: 15%;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    animation: float 12s ease-in-out infinite reverse;
+  }
+  
+  .glowing-line {
+    position: absolute;
+    top: 40%;
+    left: -5%;
+    width: 110%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+    transform: rotate(-5deg);
+    animation: pulse 3s ease-in-out infinite alternate;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 0;
+    text-align: center;
+  }
+  
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease-out, pulse 3s ease-in-out infinite alternate;
+  }
+  
+  .hero-badge span {
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  }
+  
+  .hero-description {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* قسم نتيجة الدفع */
+  .result-container {
+    background-color: #0f0f23;
+    padding: 2rem 0 4rem;
+    position: relative;
+    z-index: 4;
+  }
+  
+  .result-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .result-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .card-decoration {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(15px);
+  }
+  
+  .card-decoration:nth-child(1) {
+    top: -30px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02));
+  }
+  
+  .card-decoration:nth-child(2) {
+    bottom: -30px;
+    left: -30px;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.02));
+  }
+  
+  .result-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .result-success .result-icon {
+    color: #4caf50;
+  }
+  
+  .result-error .result-icon {
+    color: #f44336;
+  }
+  
+  .result-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  
+  .result-details {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  
+  .result-meta {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .result-action {
+    margin-top: 2rem;
+  }
+  
+  .result-btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    border: none;
+    border-radius: 8px;
+    color: #0f0f23;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+  }
+  
+  .result-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  }
+  
+  .result-btn .button-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+  
+  .result-btn:hover .button-glow {
+    transform: translateX(100%);
+  }
+  
+  .result-error-details {
+    margin-top: 1.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+  
+  .result-debug {
+    margin-top: 1.5rem;
+  }
+  
+  .result-debug summary {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+  
+  .result-debug pre {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    overflow-x: auto;
+    margin-top: 0.5rem;
+  }
+  
+  .redirect-message {
+    text-align: center;
+    margin-top: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    animation: pulse 2s ease-in-out infinite alternate;
+  }
+</style>
+
+<!-- قسم هيرو لصفحة نتيجة الدفع -->
+<section class="result-hero">
+  <!-- خلفية متحركة مع تأثيرات -->
+  <div class="animated-bg">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line"></div>
+  </div>
+  
+  <div class="container">
+    <div class="hero-content">
+      <!-- شعار متحرك -->
+      <div class="hero-badge">
+        <span>نتيجة الدفع</span>
+      </div>
+      
+      <h1 class="hero-title">
+        {% if ok %}تمت العملية بنجاح{% else %}فشلت العملية{% endif %}
+      </h1>
+    </div>
+  </div>
+</section>
+
+<!-- قسم نتيجة الدفع -->
+<section class="result-container">
+  <div class="result-wrapper">
+    <div class="result-card {% if ok %}result-success{% else %}result-error{% endif %}">
+      <!-- زخارف البطاقة -->
+      <div class="card-decoration"></div>
+      <div class="card-decoration"></div>
+      
+      <div class="result-content">
+        {% if ok %}
+          <div class="result-icon">✅</div>
+          <h2 class="result-title">تم الدفع بنجاح</h2>
+          <div class="result-meta">الدفعة رقم: {{ payment.id }}</div>
+          <div class="result-meta">المبلغ: <span class="amt">{{ payment.amount }} {{ payment.currency }}</span></div>
+          <div class="result-details">
+            {% if payment.mode == 'full' %}
+              تم تفعيل اشتراكك في الدورة بالكامل.
+            {% else %}
+              تم تسجيل سداد القسط{% if payment.step %} رقم {{ payment.step }}{% endif %}.
+            {% endif %}
+          </div>
+          <div class="result-action">
+            <a href="{% url 'learning:course_detail' payment.course.slug %}" class="result-btn">
+              اذهب إلى الدورة
+              <div class="button-glow"></div>
+            </a>
+          </div>
+        {% else %}
+          <div class="result-icon">❌</div>
+          <h2 class="result-title">فشل الدفع</h2>
+          <div class="result-details">
+            حدثت مشكلة في عملية الدفع. يرجى المحاولة لاحقًا.
+          </div>
+          
+          {% if msg %}
+            <div class="result-error-details">
+              تفاصيل تقنية: {{ msg }}
+            </div>
+          {% endif %}
+          
+          {% if debug and payment.raw_response %}
+            <div class="result-debug">
+              <details>
+                <summary>عرض تفاصيل استجابة PayPal (تشخيص)</summary>
+                <pre dir="ltr">{{ payment.raw_response }}</pre>
+              </details>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="redirect-message">
+      سيتم تحويلك تلقائياً خلال 10 ثوانٍ...
+    </div>
+  </div>
+</section>
+
+<script>
+  setTimeout(function() {
+    window.location.href = "{{ redirect_url }}";
+  }, 10000);
+</script>
+{% endblock %}

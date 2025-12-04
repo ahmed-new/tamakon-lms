@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% load dict_extras %}
+
+{% block title %}اختبار: {{ chapter.title }} - تمكن{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<!-- قسم هيرو لصفحة الاختبار -->
+<section class="quiz-hero" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); padding: 2rem 0; position: relative; overflow: hidden;">
+  <!-- خلفية متحركة مع تأثيرات -->
+  <div class="animated-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px); 
+      background-size: 30px 30px; 
+      background-position: 0 0, 15px 15px;
+      animation: pulse 4s ease-in-out infinite alternate;"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element" style="position: absolute; top: 15%; left: 10%; width: 60px; height: 60px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; opacity: 0.15; filter: blur(20px); animation: float 8s ease-in-out infinite;"></div>
+    <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; opacity: 0.15; filter: blur(25px); animation: float 12s ease-in-out infinite reverse;"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line" style="position: absolute; top: 40%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent); transform: rotate(-5deg); animation: pulse 3s ease-in-out infinite alternate;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="hero-content" style="max-width: 900px; margin: 0 auto; padding: 1rem 0;">
+      <!-- شعار متحرك -->
+      <div class="hero-badge" style="display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem; animation: fadeInDown 1s ease-out;">
+        <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">اختبار فصل</span>
+      </div>
+      
+      <h1 class="hero-title" style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glow 2s ease-in-out infinite alternate; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+        {{ chapter.title }}
+      </h1>
+      
+      <div class="quiz-info" style="color: #e2e8f0; font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.2rem;">📝</span>
+        <span>اختر الإجابة الصحيحة. عدد الأسئلة المعروضة عشوائيًا: <strong style="color: #ffd700;">{{ questions|length }}</strong>.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم الاختبار -->
+<section class="quiz-section" style="background: #0f0f23; padding: 2rem 0 4rem; position: relative; z-index: 4;">
+  <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+    <form method="post" action="{% url 'learning:chapter_quiz_submit' chapter.pk %}" class="quiz-form" style="animation: fadeIn 0.5s ease-out;">
+      {% csrf_token %}
+
+      {% for q in questions %}
+        {% with sel=answers|get_item:q.id %}
+        <fieldset class="question-card" style="margin: 2rem 0; padding: 1.5rem; border: none; background: rgba(255, 255, 255, 0.03); border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); position: relative; overflow: hidden; animation: fadeIn 0.5s ease-out {{ forloop.counter|divisibleby:3 }}s both; {% if q.id|stringformat:'s' in error_qids %}box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5), 0 4px 20px rgba(0, 0, 0, 0.2);{% endif %}">
+          <!-- زخارف البطاقة -->
+          <div class="card-decoration" style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: linear-gradient(45deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02)); border-radius: 50%; filter: blur(15px);"></div>
+          
+          <legend style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 50px; padding: 0.5rem 1.5rem; font-weight: 600; color: #ffd700; display: inline-block; margin-bottom: 1rem;">
+            سؤال {{ forloop.counter }}
+          </legend>
+
+          {% if q.text %}
+            <p style="margin: 0 0 1.5rem 0; color: #e2e8f0; font-size: 1.1rem; line-height: 1.7;">{{ q.text }}</p>
+          {% endif %}
+
+          {% if q.type == 'table' and q.table_json %}
+            {% include "learning/_question_table.html" with tbl=q.table_json %}
+          {% endif %}
+
+          <input type="hidden" name="q_id" value="{{ q.id }}">
+
+          <div class="options-container" style="display: flex; flex-direction: column; gap: 0.8rem;">
+            {% for opt in q.options.all %}
+              <label class="option-label" style="display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; cursor: pointer; color: #e2e8f0;">
+                <div class="radio-container" style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid {% if sel == opt.id|stringformat:'s' %}#ffd700{% else %}rgba(255, 255, 255, 0.3){% endif %}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <input
+                    type="radio"
+                    name="q_{{ q.id }}"
+                    value="{{ opt.id }}"
+                    {% if sel == opt.id|stringformat:"s" %}checked{% endif %}
+                    style="appearance: none; -webkit-appearance: none; margin: 0; width: 14px; height: 14px; border-radius: 50%; background: {% if sel == opt.id|stringformat:'s' %}#ffd700{% else %}transparent{% endif %};"
+                    onclick="if(this.getAttribute('data-checked') === 'true') { this.checked = false; this.setAttribute('data-checked', 'false'); this.parentNode.style.borderColor = 'rgba(255, 255, 255, 0.3)'; this.style.background = 'transparent'; } else { this.setAttribute('data-checked', 'true'); this.parentNode.style.borderColor = '#ffd700'; this.style.background = '#ffd700'; }"
+                  >
+                </div>
+                <span>{{ opt.text }}</span>
+              </label>
+            {% empty %}
+              <div style="color: #a0aec0; text-align: center; padding: 1rem; font-style: italic;">لا توجد اختيارات لهذا السؤال.</div>
+            {% endfor %}
+          </div>
+
+          {% if q.id|stringformat:"s" in error_qids %}
+            <div class="error-message" style="color: #ef4444; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 0.8rem 1rem;">
+              <span style="font-size: 1.2rem;">⚠️</span>
+              <span>من فضلك اختر إجابة لهذا السؤال.</span>
+            </div>
+          {% endif %}
+        </fieldset>
+        {% endwith %}
+      {% endfor %}
+
+      <div class="submit-container" style="text-align: center; margin-top: 3rem;">
+        <button type="submit" class="btn-submit" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.8rem; padding: 1rem 2.5rem; border-radius: 50px; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #0f0f23; text-decoration: none; font-weight: 600; font-size: 1.1rem; border: none; box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2); transition: all 0.3s ease; cursor: pointer;">
+          <span style="font-size: 1.2rem;">✓</span>
+          <span>إرسال الإجابات</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- أنيميشن CSS -->
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+  }
+  
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
+    50% { text-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* تأثيرات التفاعل */
+  .btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+  }
+  
+  .option-label:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(-3px);
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,27 @@
+<p>أهلاً {{ user.first_name|default:"" }},</p>
+<p>تم <strong>تجميد اشتراكك</strong> في كورس <strong>{{ course }}</strong> مؤقتًا.</p>
+
+{% if frozen_started_at or frozen_until %}
+  <p>
+    {% if frozen_started_at %}
+      بداية التجميد: <strong>{{ frozen_started_at|date:"Y-m-d" }}</strong><br>
+    {% endif %}
+    {% if frozen_until %}
+      ينتهي التجميد في: <strong>{{ frozen_until|date:"Y-m-d" }}</strong><br>
+    {% endif %}
+    {% if frozen_days is not None %}
+      المدة: <strong>{{ frozen_days }}</strong> يوم
+    {% endif %}
+  </p>
+{% endif %}
+
+<p>
+  يمكنك إدارة اشتراكاتك من صفحة "دوراتي":
+</p>
+<p>
+  <a href="{{ my_courses_url }}" style="background:#1d4ed8;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none">
+    اذهب لصفحة دوراتي
+  </a>
+</p>
+
+<p>تحياتنا،<br>{{ site_name }}</p>

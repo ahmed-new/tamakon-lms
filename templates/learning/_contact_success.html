@@ -1,0 +1,36 @@
+<div id="contact-form-box" class="form-card" style="background: rgba(255, 255, 255, 0.03); border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 2rem; position: relative; overflow: hidden; animation: fadeIn 0.5s ease-out;">
+  <!-- زخارف البطاقة -->
+  <div class="card-decoration" style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: linear-gradient(45deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02)); border-radius: 50%; filter: blur(15px);"></div>
+  <div class="card-decoration" style="position: absolute; bottom: -30px; left: -30px; width: 80px; height: 80px; background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.02)); border-radius: 50%; filter: blur(15px);"></div>
+  
+  <!-- أيقونة النجاح المتوهجة -->
+  <div class="success-icon" style="text-align: center; margin-bottom: 1.5rem; position: relative; z-index: 2;">
+    <div class="icon-circle" style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: rgba(16, 185, 129, 0.1); border-radius: 50%; box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); animation: pulse 2s infinite alternate;">
+      <span style="font-size: 2.5rem; filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.5));">✅</span>
+    </div>
+  </div>
+  
+  <h3 style="text-align: center; margin-bottom: 1rem; background: linear-gradient(45deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.5rem; font-weight: 700; position: relative; z-index: 2; animation: glow 2s ease-in-out infinite alternate;">تم إرسال رسالتك بنجاح</h3>
+  
+  <p style="text-align: center; color: #e2e8f0; font-size: 1.1rem; margin-bottom: 2rem; position: relative; z-index: 2;">شكرًا{% if name %} {{ name }}{% endif %}، سنعاود التواصل معك قريبًا.</p>
+
+  <div style="text-align: center; position: relative; z-index: 2;">
+    <button
+      hx-get="{% url 'learning:contact' %}"
+      hx-target="#contact-form-box"
+      hx-swap="outerHTML"
+      style="background: linear-gradient(45deg, #10b981, #34d399); border: none; border-radius: 8px; color: #0f0f23; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); position: relative; overflow: hidden; padding: 12px 24px;"
+      onMouseOver="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.4)';"
+      onMouseOut="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.3)';"
+    >
+      <span style="position: relative; z-index: 2;">✍️ إرسال رسالة جديدة</span>
+      <div class="button-glow" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent); transform: translateX(-100%); transition: transform 0.5s ease;"></div>
+    </button>
+  </div>
+</div>
+
+<style>
+button:hover .button-glow {
+  transform: translateX(100%);
+}
+</style>

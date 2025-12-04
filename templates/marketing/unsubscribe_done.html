@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}إلغاء الاشتراك{% endblock %}
+
+{% block content %}
+<h1>🔕 إلغاء الاشتراك</h1>
+
+{% if email %}
+  {% if changed %}
+    <p style="color:#dc2626; font-weight:bold;">
+      تم إلغاء اشتراك البريد <strong>{{ email }}</strong> من قائمتنا البريدية.
+    </p>
+    <p>لن تتلقى رسائل تسويقية بعد الآن. نأسف إذا سبّبنا أي إزعاج 🙏.</p>
+  {% else %}
+    <p style="color:#6b7280;">
+      البريد <strong>{{ email }}</strong> كان بالفعل غير مفعّل للاستلام.
+    </p>
+  {% endif %}
+{% else %}
+  <p style="color:#b91c1c; font-weight:bold;">
+    الرابط غير صالح أو انتهت صلاحيته.
+  </p>
+{% endif %}
+
+<a href="/" style="display:inline-block;margin-top:16px;padding:8px 12px;background:#1d4ed8;color:#fff;border-radius:6px;text-decoration:none;">
+  ⬅️ العودة للصفحة الرئيسية
+</a>
+{% endblock %}

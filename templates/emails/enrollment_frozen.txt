@@ -1,0 +1,17 @@
+أهلاً {{ user.first_name|default:"" }},
+تم تجميد اشتراكك في "{{ course }}" مؤقتًا.
+
+{% if frozen_started_at or frozen_until %}
+{% if frozen_started_at %}بداية التجميد: {{ frozen_started_at|date:"Y-m-d" }}
+{% endif %}
+{% if frozen_until %}ينتهي التجميد في: {{ frozen_until|date:"Y-m-d" }}
+{% endif %}
+{% if frozen_days is not None %}المدة: {{ frozen_days }} يوم
+{% endif %}
+{% endif %}
+
+لإدارة اشتراكاتك، تفضل بزيارة صفحة "دوراتي":
+{{ my_courses_url }}
+
+تحياتنا،
+{{ site_name }}

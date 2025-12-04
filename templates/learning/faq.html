@@ -1,0 +1,243 @@
+<!-- templates/learning/faq.html -->
+{% extends "base.html" %}
+{% block title %}الأسئلة الشائعة - تمكن{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<!-- قسم هيرو لصفحة الأسئلة الشائعة -->
+<section class="faq-hero" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); padding: 2rem 0; position: relative; overflow: hidden;">
+  <!-- خلفية متحركة مع تأثيرات -->
+  <div class="animated-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px); 
+      background-size: 30px 30px; 
+      background-position: 0 0, 15px 15px;
+      animation: pulse 4s ease-in-out infinite alternate;"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element" style="position: absolute; top: 15%; left: 10%; width: 60px; height: 60px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; opacity: 0.15; filter: blur(20px); animation: float 8s ease-in-out infinite;"></div>
+    <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; opacity: 0.15; filter: blur(25px); animation: float 12s ease-in-out infinite reverse;"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line" style="position: absolute; top: 40%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent); transform: rotate(-5deg); animation: pulse 3s ease-in-out infinite alternate;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="hero-content" style="max-width: 900px; margin: 0 auto; padding: 1rem 0; text-align: center;">
+      <!-- شعار متحرك -->
+      <div class="hero-badge" style="display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem; animation: fadeInDown 1s ease-out;">
+        <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">مركز المساعدة</span>
+      </div>
+      
+      <h1 class="hero-title" style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glow 2s ease-in-out infinite alternate; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+        الأسئلة الشائعة
+      </h1>
+      
+      <p class="hero-description" style="color: #e2e8f0; font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+        اعثر على إجابات لأكثر الأسئلة شيوعًا حول منصة تمكن والدورات التعليمية والاشتراكات
+      </p>
+      
+      <!-- حقل البحث المحسن -->
+      <div class="search-container" style="max-width: 600px; margin: 0 auto; position: relative;">
+        <input 
+          id="faqSearch" 
+          type="text" 
+          placeholder="ابحث في الأسئلة..." 
+          style="width: 100%; padding: 1rem 1.5rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; color: #e2e8f0; font-size: 1rem; transition: all 0.3s ease; outline: none; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);"
+          onFocus="this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.boxShadow='0 0 0 2px rgba(255, 215, 0, 0.1), 0 4px 20px rgba(0, 0, 0, 0.2)';"
+          onBlur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.2)';"
+        >
+        <div class="search-icon" style="position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); color: #a0aec0;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم الأسئلة الشائعة -->
+<section class="faq-section" style="background: #0f0f23; padding: 2rem 0 4rem; position: relative; z-index: 4;">
+  <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+    <div id="faqResults" class="search-results" style="margin-bottom: 2rem; padding: 1rem; border-radius: 8px; background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.1); display: none; animation: fadeIn 0.5s ease-out;">
+      <p style="color: #ffd700; margin: 0;">نتائج البحث: <span id="resultCount">0</span></p>
+    </div>
+    
+    {% for cat, items in grouped.items %}
+      <div class="faq-category" style="margin: 3rem 0; animation: fadeIn 0.5s ease-out {{ forloop.counter|divisibleby:2 }}s both;">
+        <div class="category-header" style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+          <div class="category-icon" style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 215, 0, 0.1); display: flex; align-items: center; justify-content: center; margin-left: 1rem;">
+            <span style="color: #ffd700; font-size: 1.2rem;">
+              {% if cat == 'عام' %}📋
+              {% elif cat == 'الدورات' %}📚
+              {% elif cat == 'الدفع' %}💳
+              {% elif cat == 'الحساب' %}👤
+              {% elif cat == 'تقني' %}⚙️
+              {% else %}❓
+              {% endif %}
+            </span>
+          </div>
+          <h2 style="margin: 0; color: #e2e8f0; font-size: 1.8rem; font-weight: 700; background: linear-gradient(45deg, #e2e8f0, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">{{ cat }}</h2>
+        </div>
+        
+        <div class="faq-group">
+          {% for f in items %}
+            <details class="faq-item" style="margin: 1rem 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); animation: fadeIn 0.5s ease-out {{ forloop.counter|divisibleby:3 }}s both;">
+              <summary style="cursor: pointer; padding: 1.2rem; font-weight: 600; color: #e2e8f0; display: flex; justify-content: space-between; align-items: center; position: relative; outline: none; transition: all 0.3s ease;">
+                <span>{{ f.question }}</span>
+                <div class="toggle-icon" style="width: 24px; height: 24px; border-radius: 50%; background: rgba(255, 215, 0, 0.1); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="plus-icon">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </div>
+              </summary>
+              <div class="answer" style="padding: 0 1.2rem 1.2rem; color: #cbd5e1; line-height: 1.8; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+                {{ f.answer|linebreaks }}
+              </div>
+            </details>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    
+    <div id="noResults" class="no-results" style="text-align: center; padding: 2rem; display: none; animation: fadeIn 0.5s ease-out;">
+      <div class="no-results-icon" style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+      <h3 style="color: #e2e8f0; margin-bottom: 0.5rem;">لم يتم العثور على نتائج</h3>
+      <p style="color: #a0aec0;">جرب كلمات بحث مختلفة أو تواصل معنا للمساعدة</p>
+    </div>
+  </div>
+</section>
+
+<!-- تعريفات CSS للرسوم المتحركة -->
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @keyframes glow {
+    0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+    100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2); }
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  details.faq-item[open] summary .toggle-icon {
+    background: rgba(255, 215, 0, 0.2);
+    transform: rotate(180deg);
+  }
+  
+  details.faq-item[open] summary .toggle-icon .plus-icon {
+    transform: rotate(45deg);
+  }
+  
+  details.faq-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+  
+  details.faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
+
+<script>
+  // بحث فوري محسن
+  document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('faqSearch');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const faqCategories = document.querySelectorAll('.faq-category');
+    const noResults = document.getElementById('noResults');
+    const resultsContainer = document.getElementById('faqResults');
+    const resultCount = document.getElementById('resultCount');
+    
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase().trim();
+      let matchCount = 0;
+      
+      if (q === '') {
+        // إعادة عرض جميع الفئات والأسئلة
+        faqCategories.forEach(cat => cat.style.display = '');
+        faqItems.forEach(el => el.style.display = '');
+        noResults.style.display = 'none';
+        resultsContainer.style.display = 'none';
+        return;
+      }
+      
+      // إخفاء جميع الفئات أولاً
+      faqCategories.forEach(cat => cat.style.display = 'none');
+      
+      // البحث في الأسئلة
+      faqItems.forEach(el => {
+        const text = el.innerText.toLowerCase();
+        const isMatch = text.includes(q);
+        el.style.display = isMatch ? '' : 'none';
+        
+        if (isMatch) {
+          matchCount++;
+          // إظهار الفئة التي تحتوي على سؤال مطابق
+          const parentCategory = el.closest('.faq-category');
+          if (parentCategory) {
+            parentCategory.style.display = '';
+          }
+          
+          // فتح السؤال المطابق تلقائيًا
+          el.setAttribute('open', '');
+          
+          // تمييز النص المطابق (اختياري)
+          // يمكن إضافة كود لتمييز النص المطابق هنا
+        }
+      });
+      
+      // عرض رسالة عدم وجود نتائج إذا لزم الأمر
+      noResults.style.display = matchCount === 0 ? 'block' : 'none';
+      
+      // عرض عدد النتائج
+      resultsContainer.style.display = matchCount > 0 ? 'block' : 'none';
+      resultCount.textContent = matchCount;
+    });
+    
+    // إضافة تأثيرات التبديل للأسئلة
+    faqItems.forEach(item => {
+      const summary = item.querySelector('summary');
+      summary.addEventListener('click', (e) => {
+        // منع السلوك الافتراضي للعنصر details
+        e.preventDefault();
+        
+        // التبديل بين الحالات المفتوحة والمغلقة
+        if (item.hasAttribute('open')) {
+          item.removeAttribute('open');
+        } else {
+          item.setAttribute('open', '');
+        }
+      });
+    });
+  });
+</script>
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{{ schema_json|safe }}
+</script>
+{% endblock %}

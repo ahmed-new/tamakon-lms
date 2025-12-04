@@ -1,0 +1,103 @@
+<form
+  method="post"
+  hx-post="{% url 'learning:contact' %}"
+  hx-target="#contact-form-box"
+  hx-swap="outerHTML"
+>
+  {% csrf_token %}
+  <div class="form-card" style="background: rgba(255, 255, 255, 0.03); border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 2rem; position: relative; overflow: hidden; animation: fadeIn 0.5s ease-out;">
+    <!-- زخارف البطاقة -->
+    <div class="card-decoration" style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: linear-gradient(45deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02)); border-radius: 50%; filter: blur(15px);"></div>
+    <div class="card-decoration" style="position: absolute; bottom: -30px; left: -30px; width: 80px; height: 80px; background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.02)); border-radius: 50%; filter: blur(15px);"></div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative; z-index: 2;">
+      <div class="form-group">
+        <label style="display: block; margin-bottom: 0.5rem; color: #a5b4fc; font-weight: 600;">الاسم</label>
+        <div class="input-wrapper" style="position: relative;">
+          {{ form.name|safe }}
+          {% for e in form.name.errors %}<small style="color:#ff6b6b; margin-top: 5px; display: block;">{{ e }}</small>{% endfor %}
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label style="display: block; margin-bottom: 0.5rem; color: #a5b4fc; font-weight: 600;">البريد الإلكتروني</label>
+        <div class="input-wrapper" style="position: relative;">
+          {{ form.email|safe }}
+          {% for e in form.email.errors %}<small style="color:#ff6b6b; margin-top: 5px; display: block;">{{ e }}</small>{% endfor %}
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label style="display: block; margin-bottom: 0.5rem; color: #a5b4fc; font-weight: 600;">رقم واتساب (اختياري)</label>
+        <div class="input-wrapper" style="position: relative;">
+          {{ form.whatsapp|safe }}
+          {% for e in form.whatsapp.errors %}<small style="color:#ff6b6b; margin-top: 5px; display: block;">{{ e }}</small>{% endfor %}
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label style="display: block; margin-bottom: 0.5rem; color: #a5b4fc; font-weight: 600;">العنوان / موضوع الرسالة</label>
+        <div class="input-wrapper" style="position: relative;">
+          {{ form.subject|safe }}
+          {% for e in form.subject.errors %}<small style="color:#ff6b6b; margin-top: 5px; display: block;">{{ e }}</small>{% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top: 20px; position: relative; z-index: 2;">
+      <label style="display: block; margin-bottom: 0.5rem; color: #a5b4fc; font-weight: 600;">نص الرسالة</label>
+      <div class="input-wrapper" style="position: relative;">
+        {{ form.message|safe }}
+        {% for e in form.message.errors %}<small style="color:#ff6b6b; margin-top: 5px; display: block;">{{ e }}</small>{% endfor %}
+      </div>
+    </div>
+
+    <button type="submit" 
+      style="margin-top: 25px; background: linear-gradient(45deg, #ffd700, #ffed4e); border: none; border-radius: 8px; color: #0f0f23; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); position: relative; overflow: hidden; padding: 12px 24px; z-index: 2;"
+      onMouseOver="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(255, 215, 0, 0.4)';"
+      onMouseOut="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(255, 215, 0, 0.3)';"
+    >
+      <span style="position: relative; z-index: 2;">✉️ إرسال الرسالة</span>
+      <div class="button-glow" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent); transform: translateX(-100%); transition: transform 0.5s ease;"></div>
+    </button>
+
+    {# مؤشر تحميل #}
+    <span class="hx-indicator" style="display: none; margin-inline-start: 15px; color: #a5b4fc; animation: pulse 1.5s infinite alternate;">جارٍ الإرسال…</span>
+  </div>
+</form>
+
+<style>
+/* تنسيق حقول الإدخال */
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+textarea {
+  width: 100%; 
+  padding: 0.8rem 1rem; 
+  background: rgba(255, 255, 255, 0.05); 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  border-radius: 8px; 
+  color: #e2e8f0; 
+  font-size: 1rem; 
+  transition: all 0.3s ease; 
+  outline: none;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="tel"]:focus, 
+textarea:focus {
+  border-color: rgba(255, 215, 0, 0.5); 
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* تأثير الزر عند التحويم */
+button[type="submit"]:hover .button-glow {
+  transform: translateX(100%);
+}
+</style>

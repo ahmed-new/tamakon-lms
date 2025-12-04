@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+{% block title %}{{ lesson.title }} - تمكن{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<!-- قسم هيرو لصفحة الدرس -->
+<section class="lesson-hero" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); padding: 2rem 0; position: relative; overflow: hidden;">
+  <!-- خلفية متحركة مع تأثيرات -->
+  <div class="animated-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px); 
+      background-size: 30px 30px; 
+      background-position: 0 0, 15px 15px;
+      animation: pulse 4s ease-in-out infinite alternate;"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element" style="position: absolute; top: 15%; left: 10%; width: 60px; height: 60px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; opacity: 0.15; filter: blur(20px); animation: float 8s ease-in-out infinite;"></div>
+    <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; opacity: 0.15; filter: blur(25px); animation: float 12s ease-in-out infinite reverse;"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line" style="position: absolute; top: 40%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent); transform: rotate(-5deg); animation: pulse 3s ease-in-out infinite alternate;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="hero-content" style="max-width: 900px; margin: 0 auto; padding: 1rem 0;">
+      <!-- شعار متحرك -->
+      <div class="hero-badge" style="display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem; animation: fadeInDown 1s ease-out;">
+        <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">درس تعليمي</span>
+      </div>
+      
+      <h1 class="hero-title" style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glow 2s ease-in-out infinite alternate; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+        {{ lesson.title }}
+      </h1>
+      
+      {% if lesson.is_free_preview %}
+      <div class="preview-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem;">
+        <span style="font-size: 1.2rem;">🔓</span>
+        <span style="color: #22c55e; font-weight: 600;">هذا الدرس متاح للمعاينة مجانًا</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- قسم محتوى الدرس -->
+<section class="lesson-content" style="background: #0f0f23; padding: 2rem 0 4rem; position: relative; z-index: 4;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="lesson-layout" style="display: flex; gap: 2rem; align-items: flex-start;">
+      <!-- القائمة الجانبية -->
+      <aside class="lesson-sidebar" id="sidebar" style="width: 320px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(10px); position: sticky; top: 20px; max-height: 80vh; overflow: auto;">
+        <div class="search-box" style="position: sticky; top: 0; background: rgba(15, 15, 35, 0.8); padding-bottom: 1rem; backdrop-filter: blur(5px); z-index: 10;">
+          <div style="position: relative;">
+            <input id="lessonSearch" class="search-input" type="search" placeholder="ابحث في الدروس…" style="width: 100%; padding: 0.8rem 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0; outline: none;">
+            <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #a0aec0; font-size: 1rem;">🔍</span>
+          </div>
+          <div class="muted" style="margin-top: 0.5rem; color: #a0aec0; font-size: 0.8rem;">يبحث في عناوين الفصول والمواضيع والدروس</div>
+        </div>
+
+        <div id="navTree" style="margin-top: 1rem;">
+          {% for ch in nav_tree %}
+            <div class="ch" data-text="{{ ch.chapter.title|escape }}" style="margin-bottom: 1.5rem; animation: fadeIn 0.5s ease-out {{ forloop.counter|divisibleby:3 }}s both;">
+              <div class="ch-title" style="font-weight: 700; margin-bottom: 0.8rem; font-size: 1rem; color: #e2e8f0; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="color: #ffd700; font-size: 1.2rem;">📘</span>
+                <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">{{ ch.chapter.title }}</span>
+              </div>
+              
+              {% for tp in ch.topics %}
+                <div class="tp" data-text="{{ tp.topic.title|escape }}" style="margin-right: 1rem; margin-bottom: 1rem; border-right: 2px solid rgba(255, 215, 0, 0.2); padding-right: 0.8rem;">
+                  <div class="tp-title" style="font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; color: #e2e8f0;">
+                    <span style="color: #60a5fa;">🔹</span> {{ tp.topic.title }}
+                  </div>
+                  
+                  <div class="ls-list" style="display: flex; flex-direction: column; gap: 0.3rem;">
+                    {% for it in tp.lessons %}
+                      <a class="ls-item {% if it.id == lesson.id %}ls-active{% endif %}"
+                         data-text="{{ it.title|escape }}"
+                         href="{% url 'learning:lesson_detail' it.id %}"
+                         style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.8rem; border-radius: 8px; text-decoration: none; color: #e2e8f0; transition: all 0.3s ease; {% if it.id == lesson.id %}background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.2); font-weight: 600;{% else %}background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);{% endif %}">
+                        <span style="display: flex; align-items: center; gap: 0.5rem;">
+                          <span style="font-size: 0.9rem;">
+                            {% if it.id == lesson.id %}▶️{% else %}📝{% endif %}
+                          </span>
+                          <span>{{ it.title }}</span>
+                          {% if it.is_free_preview %}
+                            <span class="badge" style="font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 50px; background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3);">معاينة</span>
+                          {% endif %}
+                          {% if it.is_completed %}
+                            <span class="check" style="font-size: 0.8rem; color: #22c55e; margin-right: 0.3rem;">✔︎</span>
+                          {% endif %}
+                        </span>
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+        <div id="noMatches" class="muted" style="display: none; margin-top: 1rem; text-align: center; color: #a0aec0; padding: 1rem;">لا توجد نتائج مطابقة</div>
+      </aside>
+
+      <!-- المحتوى الرئيسي -->
+      <section class="lesson-main" style="flex: 1; min-width: 0;">
+        <div class="video-container"
+       style="background: rgba(0, 0, 0, 0.2); border-radius: 16px; overflow: hidden;
+              margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);
+              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
+
+    {% if lesson.video_url %}
+
+      {# --- 1) لو القيمة عبارة عن iframe جاهز (HTML كامل) --- #}
+      {% if "<iframe" in lesson.video_url %}
+        {{ lesson.video_url|safe }}
+
+      {# --- 2) لو عندك لينك Bunny Embed كامل --- #}
+      {% elif "iframe.mediadelivery.net" in lesson.video_url %}
+        <div style="position: relative; padding-top: 56.25%;">
+          <iframe
+            src="{{ lesson.video_url }}"
+            loading="lazy"
+            style="border: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+      {# --- 3) لو مجرد Video ID من Bunny --- #}
+      {% else %}
+        <div style="position: relative; padding-top: 56.25%;">
+          <iframe
+            src="https://iframe.mediadelivery.net/embed/480777/{{ lesson.video_url }}"
+            loading="lazy"
+            style="border: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      {% endif %}
+
+    {% else %}
+      <p style="color: #aaa; padding: 1rem;">لا يوجد فيديو لهذا الدرس حاليًا.</p>
+    {% endif %}
+  </div>
+
+        <div class="nav-btns" style="display: flex; justify-content: space-between; gap: 1rem; margin: 2rem 0;">
+          {% if prev_lesson %}
+            <a class="btn-secondary" href="{% url 'learning:lesson_detail' prev_lesson.id %}" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.8rem 1.5rem; border-radius: 50px; background: rgba(255, 255, 255, 0.05); color: #e2e8f0; border: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+              <span>⬅︎</span>
+              <span>الدرس السابق</span>
+            </a>
+          {% else %}
+            <a class="btn-secondary" aria-disabled="true" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.8rem 1.5rem; border-radius: 50px; background: rgba(255, 255, 255, 0.02); color: rgba(226, 232, 240, 0.5); border: 1px solid rgba(255, 255, 255, 0.05); text-decoration: none; font-weight: 600; opacity: 0.5; pointer-events: none;">
+              <span>⬅︎</span>
+              <span>الدرس السابق</span>
+            </a>
+          {% endif %}
+
+          {% if next_lesson %}
+            <a class="btn-primary" href="{% url 'learning:lesson_detail' next_lesson.id %}" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.8rem 1.5rem; border-radius: 50px; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #0f0f23; text-decoration: none; font-weight: 600; box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2); transition: all 0.3s ease;">
+              <span>الدرس التالي</span>
+              <span>➜</span>
+            </a>
+          {% else %}
+            <a class="btn-primary" aria-disabled="true" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.8rem 1.5rem; border-radius: 50px; background: linear-gradient(45deg, rgba(255, 215, 0, 0.5), rgba(255, 237, 78, 0.5)); color: rgba(15, 15, 35, 0.7); text-decoration: none; font-weight: 600; box-shadow: none; opacity: 0.5; pointer-events: none;">
+              <span>الدرس التالي</span>
+              <span>➜</span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="completion-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(10px); margin-top: 2rem;">
+          {% if user.is_authenticated %}
+            <form method="post" action="{% url 'learning:complete_lesson' lesson.pk %}" style="text-align: center;">
+              {% csrf_token %}
+              <button type="submit" class="btn-complete" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2rem; border-radius: 50px; background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); text-decoration: none; font-weight: 600; transition: all 0.3s ease; cursor: pointer;">
+                <span style="font-size: 1.2rem;">✔︎</span>
+                <span>إتمام هذا الدرس</span>
+              </button>
+            </form>
+          {% else %}
+            <div style="text-align: center; color: #a0aec0;">
+              <p>لتسجيل التقدّم، من فضلك 
+                <a href="{% url 'users:login' %}?next={{ request.path|urlencode }}" style="color: #ffd700; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">سجّل الدخول</a>.
+              </p>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- أنيميشن CSS -->
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+  }
+  
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
+    50% { text-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* تأثيرات التفاعل */
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .btn-complete:hover {
+    background: rgba(34, 197, 94, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .ls-item:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    transform: translateX(-3px);
+  }
+  
+  /* تكيف مع الشاشات الصغيرة */
+  @media (max-width: 900px) {
+    .lesson-layout {
+      flex-direction: column;
+    }
+    
+    .lesson-sidebar {
+      width: 100% !important;
+      position: static !important;
+      max-height: none !important;
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+
+<script>
+  // فلترة بحث فورية داخل القائمة الجانبية
+  const input = document.getElementById('lessonSearch');
+  const navTree = document.getElementById('navTree');
+  const noMatches = document.getElementById('noMatches');
+
+  function normalize(s){ return (s || '').toLowerCase().trim(); }
+
+  function filterTree() {
+    const q = normalize(input.value);
+    let anyVisible = false;
+
+    navTree.querySelectorAll('.ch').forEach(ch => {
+      const chText = normalize(ch.getAttribute('data-text'));
+      let chVisible = false;
+
+      ch.querySelectorAll('.tp').forEach(tp => {
+        const tpText = normalize(tp.getAttribute('data-text'));
+        let tpVisible = false;
+
+        tp.querySelectorAll('.ls-item').forEach(ls => {
+          const lsText = normalize(ls.getAttribute('data-text'));
+          const match = !q || chText.includes(q) || tpText.includes(q) || lsText.includes(q);
+          ls.style.display = match ? '' : 'none';
+          if (match) tpVisible = true;
+        });
+
+        tp.style.display = tpVisible || (!q) ? '' : 'none';
+        if (tpVisible || (!q && tp.style.display !== 'none')) chVisible = true;
+      });
+
+      ch.style.display = chVisible || (!q) ? '' : 'none';
+      anyVisible = anyVisible || (ch.style.display !== 'none');
+    });
+
+    noMatches.style.display = anyVisible ? 'none' : '';
+  }
+
+  input.addEventListener('input', filterTree);
+</script>
+{% endblock %}

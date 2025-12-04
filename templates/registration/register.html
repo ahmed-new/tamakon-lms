@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% block title %}تسجيل حساب جديد - تمكن{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+
+<!-- هيرو -->
+<section class="hero-section" style="background: linear-gradient(135deg,#0f0f23 0%,#1a1a2e 50%,#16213e 100%); padding: 2.25rem 0;">
+  <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+    <div style="text-align:center">
+      <div style="display:inline-block;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);border-radius:999px;padding:.4rem 1rem;margin-bottom:.75rem;">
+        <span style="background:linear-gradient(45deg,#ffd700,#ffed4e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700">مرحبا بك</span>
+      </div>
+      <h1 style="font-size:2.2rem;font-weight:800;margin:0;background:linear-gradient(45deg,#ffd700,#ffed4e,#667eea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+        إنشاء حساب جديد
+      </h1>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+  <div class="auth-card">
+    {% if form.non_field_errors %}
+      <div class="alert-error">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <form method="post" novalidate class="auth-form">
+      {% csrf_token %}
+
+      <div class="form-row">
+        <label for="{{ form.username.id_for_label }}">اسم المستخدم</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+          <div class="field-error">{{ form.username.errors }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-row">
+        <label for="{{ form.email.id_for_label }}">البريد الإلكتروني</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <div class="field-error">{{ form.email.errors }}</div>
+        {% endif %}
+      </div>
+
+      <div class="grid-2">
+        <div class="form-row">
+          <label for="{{ form.first_name.id_for_label }}">الاسم الأول</label>
+          {{ form.first_name }}
+          {% if form.first_name.errors %}
+            <div class="field-error">{{ form.first_name.errors }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-row">
+          <label for="{{ form.last_name.id_for_label }}">اسم العائلة</label>
+          {{ form.last_name }}
+          {% if form.last_name.errors %}
+            <div class="field-error">{{ form.last_name.errors }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="{{ form.password1.id_for_label }}">كلمة المرور</label>
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+          <div class="field-error">{{ form.password1.errors }}</div>
+        {% endif %}
+        <p class="hint">٨ أحرف على الأقل، ويفضّل احتواءها على حروف كبيرة وصغيرة وأرقام/رموز.</p>
+      </div>
+
+      <div class="form-row">
+        <label for="{{ form.password2.id_for_label }}">تأكيد كلمة المرور</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+          <div class="field-error">{{ form.password2.errors }}</div>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn-submit">✨ إنشاء الحساب</button>
+
+      <p class="alt-link">لديك حساب بالفعل؟ <a href="{% url 'users:login' %}">تسجيل الدخول</a></p>
+    </form>
+  </div>
+</div>
+
+<style>
+  /* خلفية داكنة موحّدة */
+  html, body, main { background:#0f0f23 !important; color:#e2e8f0; }
+  section, .container { background: transparent !important; }
+
+  .auth-card{
+    background:#111827;
+    border:1px solid #2a3346;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 4px 20px rgba(0,0,0,.25);
+  }
+
+  .auth-form{ direction: rtl; }
+  .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width: 640px){ .grid-2{ grid-template-columns:1fr; } }
+
+  .form-row{ margin-bottom:14px; }
+  .form-row label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:700;
+    color:#e5e7eb;
+  }
+
+  /* مدخلات الفورم الافتراضية القادمة من الـ Form Widgets */
+  .auth-form input[type="text"],
+  .auth-form input[type="email"],
+  .auth-form input[type="password"]{
+    width:100%;
+    background: rgba(15,15,35,.6);
+    border:1px solid rgba(255,255,255,.1);
+    color:#e5e7eb;
+    padding:10px 12px;
+    border-radius:10px;
+    outline:none;
+    transition:.2s border, .2s box-shadow;
+  }
+  .auth-form input:focus{
+    border-color: rgba(255,215,0,.5);
+    box-shadow:0 0 0 2px rgba(255,215,0,.15);
+  }
+
+  .hint{
+    margin:.4rem 0 0;
+    font-size:.85rem;
+    color:#9aa7bd;
+  }
+
+  .field-error{
+    margin-top:6px;
+    color:#fca5a5;
+    font-size:.9rem;
+  }
+
+  .alert-error{
+    background: rgba(239,68,68,.12);
+    border:1px solid rgba(239,68,68,.35);
+    color:#fecaca;
+    border-radius:10px;
+    padding:.75rem 1rem;
+    margin-bottom:1rem;
+  }
+
+  .btn-submit{
+    width:100%;
+    margin-top:10px;
+    padding:.9rem 1.2rem;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    font-weight:800;
+    background:linear-gradient(45deg,#ffd700,#ffed4e);
+    color:#111827;
+    box-shadow:0 8px 26px rgba(255,215,0,.35);
+    transition:.15s transform,.15s box-shadow;
+  }
+  .btn-submit:hover{
+    transform:translateY(-1px);
+    box-shadow:0 12px 30px rgba(255,215,0,.45);
+  }
+
+  .alt-link{
+    text-align:center;
+    margin-top:12px;
+    color:#a3b1c9;
+  }
+  .alt-link a{
+    color:#60a5fa;
+    text-decoration:underline;
+  }
+</style>
+
+{% endblock %}

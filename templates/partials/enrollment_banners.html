@@ -1,0 +1,347 @@
+{# templates/partials/enrollment_banners.html #}
+<style>
+/* تحريك العناصر */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* توهج العناصر */
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3)); }
+  50% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5)); }
+  100% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3)); }
+}
+
+/* نبض العناصر */
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.3; }
+}
+
+/* ظهور العناصر */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* عام */
+.banners-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 20px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.banner {
+  position: relative;
+  border-radius: 16px;
+  padding: 20px;
+  font-family: "Cairo", sans-serif;
+  background: rgba(15, 15, 35, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* زخارف اللافتة */
+.banner::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  filter: blur(15px);
+  z-index: 0;
+}
+
+.banner::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  filter: blur(15px);
+  z-index: 0;
+}
+
+/* خط متوهج */
+.banner-glow-line {
+  position: absolute;
+  top: 50%;
+  left: -5%;
+  width: 110%;
+  height: 1px;
+  transform: rotate(-2deg);
+  animation: pulse 3s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+/* ألوان التحذير */
+.banner-warning {
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.banner-warning::before {
+  background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+}
+
+.banner-warning::after {
+  background: linear-gradient(45deg, rgba(255, 165, 0, 0.05), rgba(255, 140, 0, 0.02));
+}
+
+.banner-warning .banner-glow-line {
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+}
+
+/* ألوان المعلومات */
+.banner-info {
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.banner-info::before {
+  background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05));
+}
+
+.banner-info::after {
+  background: linear-gradient(45deg, rgba(118, 75, 162, 0.05), rgba(102, 126, 234, 0.02));
+}
+
+.banner-info .banner-glow-line {
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+}
+
+/* العنوان */
+.banner-title {
+  position: relative;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px;
+  z-index: 2;
+}
+
+.banner-warning .banner-title {
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.banner-info .banner-title {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* عنوان الاشتراك المجمد */
+.frozen-title {
+  background: linear-gradient(45deg, #ff3366, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: pulse 1.5s ease-in-out infinite alternate;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+  letter-spacing: 0.5px;
+  font-size: 18px;
+}
+
+/* النص */
+.banner-text {
+  position: relative;
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #e2e8f0;
+  line-height: 1.6;
+  z-index: 2;
+}
+
+/* القائمة */
+.banner-list {
+  position: relative;
+  list-style: none;
+  margin: 0 0 12px 10px;
+  font-size: 14px;
+  color: #cbd5e1;
+  z-index: 2;
+}
+
+.banner-list li {
+  position: relative;
+  padding-right: 20px;
+  margin-bottom: 6px;
+}
+
+.banner-list li::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.banner-warning .banner-list li::before {
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.banner-info .banner-list li::before {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+}
+
+.banner-link {
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.banner-warning .banner-link {
+  color: #ffd700;
+}
+
+.banner-info .banner-link {
+  color: #a5b4fc;
+}
+
+.banner-link:hover {
+  filter: brightness(1.2);
+}
+
+.banner-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.banner-warning .banner-link::after {
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+}
+
+.banner-info .banner-link::after {
+  background: linear-gradient(90deg, transparent, #a5b4fc, transparent);
+}
+
+.banner-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* الأزرار */
+.banner-btn {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #0f0f23;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.banner-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  z-index: 1;
+}
+
+.banner-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.banner-btn-warning {
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.banner-btn-warning:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.banner-btn-info {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.banner-btn-info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.banner-btn span {
+  position: relative;
+  z-index: 2;
+}
+</style>
+
+{% if enrollment_banners %}
+  <div class="banners-wrapper">
+    {% for b in enrollment_banners %}
+      <div class="banner {% if b.level == 'warning' %}banner-warning{% else %}banner-info{% endif %}">
+        <!-- خط متوهج -->
+        <div class="banner-glow-line"></div>
+        
+        <div class="banner-title">
+          {% if b.title == "اشتراكك مجمّد مؤقتًا" %}
+            <span class="frozen-title">{{ b.title }}</span>
+          {% else %}
+            {{ b.title }}
+          {% endif %}
+        </div>
+        <div class="banner-text">{{ b.text }}</div>
+
+        {% if b.items %}
+          <ul class="banner-list">
+            {% for it in b.items %}
+              <li>
+                {% if it.url %}
+                  <a href="{{ it.url }}" class="banner-link">{{ it.name }}</a>
+                {% else %}
+                  {{ it.name }}
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if b.action_url and b.action_text %}
+          <a href="{{ b.action_url }}" class="banner-btn {% if b.level == 'warning' %}banner-btn-warning{% else %}banner-btn-info{% endif %}">
+            <span>{{ b.action_text }}</span>
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}حملة بريدية — الزوار{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<!-- قسم هيرو لصفحة إرسال البريد الجماعي -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <!-- شعار متحرك -->
+      <div class="hero-badge">
+        <span>التسويق الإلكتروني</span>
+      </div>
+      
+      <h1 class="page-title">✉️ إرسال بريد للزوّار</h1>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+
+    <fieldset class="email-fieldset target-fieldset">
+      <legend>🎯 اختر المستهدفين</legend>
+      <table class="email-table">
+        <thead>
+          <tr>
+            <th>
+              <input type="checkbox" id="check-all" onclick="toggleAll(this)">
+            </th>
+            <th>البريد</th>
+            <th>الاسم</th>
+            <th>المصدر</th>
+            <th>أُضيف</th>
+            <th>آخر ظهور</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for v in visitors %}
+          <tr>
+            <td><input type="checkbox" name="selected" value="{{ v.id }}"></td>
+            <td>{{ v.email }}</td>
+            <td>{{ v.name|default:"—" }}</td>
+            <td>{{ v.source|default:"—" }}</td>
+            <td>{{ v.created_at|date:"Y-m-d H:i" }}</td>
+            <td>{{ v.last_seen_at|date:"Y-m-d H:i"|default:"—" }}</td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="6" class="no-data">🚫 لا يوجد زوّار بعد.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset class="email-fieldset content-fieldset">
+      <legend>📝 المحتوى</legend>
+      {{ form.media }}
+      {{ form.as_p }}
+
+      {% verbatim %}
+      <div class="instructions">
+        <strong>ℹ️ إرشادات استخدام المتغيرات الديناميكية:</strong>
+        <ul>
+          <li><code>{{ name }}</code> ➝ يتم استبداله باسم الزائر (أو "صديقنا" لو الاسم غير متوفر).</li>
+          <li><code>{{ email }}</code> ➝ يظهر بريد الزائر.</li>
+          <li><code>{{ site_name }}</code> ➝ اسم المنصة.</li>
+          <li><code>{{ unsubscribe_url }}</code> ➝ رابط إلغاء الاشتراك (يُنصح وضعه في أسفل الرسالة).</li>
+        </ul>
+        <p class="example">
+          مثال: <em>مرحبًا {{ name }}، يسعدنا انضمامك إلينا في {{ site_name }}.</em>
+        </p>
+      </div>
+      {% endverbatim %}
+    </fieldset>
+
+    <div class="action-buttons">
+      <button name="preview" class="btn btn-preview">👁️ معاينة</button>
+      <button name="start" class="btn btn-send">🚀 ابدأ الإرسال (بالدفعات)</button>
+    </div>
+  </form>
+</div>
+
+<script>
+function toggleAll(source) {
+  const checkboxes = document.querySelectorAll('input[name="selected"]');
+  for (const cb of checkboxes) {
+    cb.checked = source.checked;
+  }
+}
+</script>
+
+<style>
+/* ====== صفحة البريد الجماعي – ثيم داكن كامل ====== */
+
+/* خلفية الصفحة وثباتها */
+body.theme-dark,
+body.theme-dark main,
+body.theme-dark .site-wrapper,
+body.theme-dark .page-content,
+body.theme-dark .content-wrapper {
+  background:#0f0f23 !important;
+  color:#e2e8f0;
+}
+
+/* هيرو */
+body.theme-dark .hero-section{
+  position:relative;overflow:hidden;padding:2rem 0;
+  background:linear-gradient(135deg,#0f0f23 0%,#1a1a2e 50%,#16213e 100%);
+}
+body.theme-dark .container, 
+body.theme-dark section{ background:transparent !important; }
+
+body.theme-dark .hero-content{max-width:900px;margin:0 auto;padding:1rem 0;text-align:center}
+body.theme-dark .hero-badge{
+  display:inline-block;background:rgba(255,215,0,.1);
+  border:1px solid rgba(255,215,0,.3);border-radius:999px;
+  padding:.5rem 1.5rem;margin-bottom:1rem;animation:pulse 2s infinite ease-in-out
+}
+body.theme-dark .hero-badge span{
+  background:linear-gradient(45deg,#ffd700,#ffed4e);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600
+}
+body.theme-dark .page-title{
+  font-size:2.2rem;font-weight:800;margin-bottom:1.5rem;
+  background:linear-gradient(45deg,#ffd700,#ffed4e,#667eea);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:glow 2s ease-in-out infinite alternate
+}
+
+/* بطاقات/سكاشن الصفحة */
+body.theme-dark .email-fieldset{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(15,15,35,.55);
+  padding:20px;border-radius:14px;margin-bottom:20px;backdrop-filter:blur(10px)
+}
+body.theme-dark .email-fieldset legend{
+  background:linear-gradient(45deg,#ffd700,#ffed4e);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700
+}
+
+/* جدول الزوّار */
+body.theme-dark .email-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:12px;color:#e5e7eb}
+body.theme-dark .email-table thead tr{background:rgba(255,255,255,.06)}
+body.theme-dark .email-table th{padding:12px 10px;text-align:right;font-weight:700;border-bottom:1px solid rgba(255,255,255,.08)}
+body.theme-dark .email-table td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
+body.theme-dark .email-table tbody tr:hover{background:rgba(255,255,255,.04)}
+body.theme-dark .no-data{text-align:center;padding:18px;color:#cbd5e1}
+
+/* Inputs / selects */
+body.theme-dark textarea,
+body.theme-dark input[type="text"],
+body.theme-dark input[type="email"],
+body.theme-dark select{
+  background:rgba(15,15,35,.7);
+  border:1px solid rgba(255,255,255,.12);
+  color:#e2e8f0;padding:10px;border-radius:10px
+}
+body.theme-dark textarea:focus,
+body.theme-dark input:focus,
+body.theme-dark select:focus{
+  outline:none;border-color:rgba(255,215,0,.55);
+  box-shadow:0 0 0 2px rgba(255,215,0,.22)
+}
+body.theme-dark input[type="checkbox"]{width:18px;height:18px;accent-color:#ffd700}
+
+/* أزرار الأكشن */
+body.theme-dark .action-buttons{margin-top:20px;display:flex;gap:14px;justify-content:center}
+body.theme-dark .btn{padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:8px}
+body.theme-dark .btn-preview{background:rgba(255,255,255,.10);color:#e2e8f0;border:1px solid rgba(255,255,255,.2)}
+body.theme-dark .btn-preview:hover{background:rgba(255,255,255,.16)}
+body.theme-dark .btn-send{background:linear-gradient(45deg,#ffd700,#ffed4e);color:#181a27;border:none;box-shadow:0 4px 18px rgba(255,215,0,.28)}
+body.theme-dark .btn-send:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(255,215,0,.36)}
+
+/* تعليمات المتغيّرات */
+body.theme-dark .instructions{
+  margin-top:18px;padding:14px;background:rgba(20,20,40,.45);
+  border:1px dashed rgba(255,215,0,.35);border-radius:12px;font-size:14px;line-height:1.65;color:#cbd5e1
+}
+body.theme-dark .instructions code{background:rgba(0,0,0,.25);color:#10b981;padding:2px 6px;border-radius:4px}
+
+/* منع أي خلفيات فاتحة جاية من الـbase */
+body.theme-dark .card,
+body.theme-dark .alert,
+body.theme-dark .section,
+body.theme-dark .container > .card,
+body.theme-dark form > .card {
+  background:rgba(15,15,35,.55) !important;
+  color:#e2e8f0 !important;
+  border-color:rgba(255,255,255,.08) !important;
+}
+body.theme-dark .card::before,
+body.theme-dark .card::after,
+body.theme-dark .alert::before,
+body.theme-dark .alert::after{display:none !important}
+
+/* TinyMCE (الحاوية فقط – محتوى الإطار يحتاج content_css من init) */
+body.theme-dark .tox:not(.tox-tinymce-inline) .tox-editor-header,
+body.theme-dark .tox .tox-toolbar,
+body.theme-dark .tox .tox-toolbar__primary{background:#1a1a2e !important;border-color:rgba(255,255,255,.10) !important}
+body.theme-dark .tox .tox-tbtn{color:#e2e8f0 !important}
+body.theme-dark .tox .tox-tbtn:hover{background:rgba(255,255,255,.10) !important}
+body.theme-dark .tox .tox-edit-area__iframe{background:#0f0f23 !important}
+body.theme-dark .tox .tox-tinymce{border:1px solid rgba(255,255,255,.1) !important;border-radius:10px !important;overflow:hidden}
+
+/* حركات خفيفة */
+@keyframes pulse{0%{opacity:.65}50%{opacity:1}100%{opacity:.65}}
+@keyframes glow{0%{text-shadow:0 0 10px rgba(255,215,0,.2)}100%{text-shadow:0 0 30px rgba(255,215,0,.5),0 0 50px rgba(255,215,0,.28)}}
+</style>
+
+{% endblock %}

@@ -1,0 +1,900 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}تمكن — بوابتك نحو التميز المهني{% endblock %}
+
+{% block body_class %} class="theme-dark"{% endblock %}
+{% block header_class %} header--transparent-dark{% endblock %}
+
+{% block content %}
+<!-- قسم Hero الرئيسي مع تصميم داكن مذهل -->
+<section class="hero-section" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;">
+  <!-- خلفية متحركة مع تأثيرات أكثر حيوية -->
+  <div class="animated-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+    <!-- شبكة متحركة للخلفية -->
+    <div class="grid-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px), 
+      radial-gradient(rgba(255, 215, 0, 0.1) 1px, transparent 1px); 
+      background-size: 30px 30px; 
+      background-position: 0 0, 15px 15px;
+      animation: pulse 4s ease-in-out infinite alternate;"></div>
+    
+    <!-- العناصر المتحركة المضيئة -->
+    <div class="floating-element" style="position: absolute; top: 15%; left: 10%; width: 100px; height: 100px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; opacity: 0.15; filter: blur(20px); animation: float 8s ease-in-out infinite;"></div>
+    <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 150px; height: 150px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; opacity: 0.15; filter: blur(25px); animation: float 12s ease-in-out infinite reverse;"></div>
+    <div class="floating-element" style="position: absolute; bottom: 20%; left: 20%; width: 80px; height: 80px; background: linear-gradient(45deg, #f093fb, #f5576c); border-radius: 50%; opacity: 0.15; filter: blur(15px); animation: float 10s ease-in-out infinite 2s;"></div>
+    <div class="floating-element" style="position: absolute; top: 30%; right: 30%; width: 60px; height: 60px; background: linear-gradient(45deg, #4facfe, #00f2fe); border-radius: 50%; opacity: 0.15; filter: blur(12px); animation: float 9s ease-in-out infinite 1s;"></div>
+    
+    <!-- خطوط متوهجة -->
+    <div class="glowing-line" style="position: absolute; top: 40%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent); transform: rotate(-5deg); animation: pulse 3s ease-in-out infinite alternate;"></div>
+    <div class="glowing-line" style="position: absolute; top: 60%; left: -5%; width: 110%; height: 1px; background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent); transform: rotate(5deg); animation: pulse 4s ease-in-out infinite alternate 1s;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2;">
+    <div class="hero-content" style="text-align: center; max-width: 900px; margin: 0 auto; padding: 0 20px;">
+      <!-- شعار متحرك -->
+      <div class="hero-badge" style="display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 2rem; animation: fadeInDown 1s ease-out;">
+        <span style="background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">منصة تعليمية رائدة في المملكة العربية السعودية</span>
+      </div>
+      
+      <h1 class="hero-title" style="font-size: 4.5rem; font-weight: 800; margin-bottom: 1.5rem; background: linear-gradient(45deg, #ffd700, #ffed4e, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glow 2s ease-in-out infinite alternate; text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);">
+        ابدأ رحلتك نحو <span style="display: block; font-size: 5.5rem; margin-top: 0.5rem; letter-spacing: -1px;">التميز المهني</span>
+      </h1>
+      
+      <p class="hero-subtitle" style="font-size: 1.5rem; color: #e2e8f0; margin-bottom: 3rem; line-height: 1.8; max-width: 700px; margin-left: auto; margin-right: auto; animation: fadeIn 1s ease-out 0.5s both;">
+        منصة تعليمية متكاملة تقدم دورات احترافية في المحاسبة والإدارة المالية بأيدي خبراء معتمدين ومحتوى عربي عالي الجودة
+      </p>
+      
+      <div class="hero-stats" style="display: flex; justify-content: center; gap: 3rem; margin-bottom: 3rem; flex-wrap: wrap;">
+        <div class="stat-item" style="text-align: center; animation: fadeIn 1s ease-out 0.7s both;">
+          <div class="stat-number" style="font-size: 2.5rem; font-weight: 700; color: #ffd700; margin-bottom: 0.5rem;">+5,000</div>
+          <div class="stat-label" style="color: #a0aec0; font-size: 1rem;">متعلم</div>
+        </div>
+        <div class="stat-item" style="text-align: center; animation: fadeIn 1s ease-out 0.9s both;">
+          <div class="stat-number" style="font-size: 2.5rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">+20</div>
+          <div class="stat-label" style="color: #a0aec0; font-size: 1rem;">دورة تدريبية</div>
+        </div>
+        <div class="stat-item" style="text-align: center; animation: fadeIn 1s ease-out 1.1s both;">
+          <div class="stat-number" style="font-size: 2.5rem; font-weight: 700; color: #f093fb; margin-bottom: 0.5rem;">98%</div>
+          <div class="stat-label" style="color: #a0aec0; font-size: 1rem;">نسبة الرضا</div>
+        </div>
+      </div>
+      
+      <div class="hero-actions" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; animation: fadeIn 1s ease-out 1.3s both;">
+        <a href="{% url 'learning:course_list' %}" class="btn btn-primary btn-lg" style="background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1a1a2e; border: none; padding: 1.2rem 3rem; font-size: 1.2rem; font-weight: 600; border-radius: 50px; box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3); transition: all 0.3s ease; position: relative; overflow: hidden;">
+          <span style="position: relative; z-index: 2;">ابدأ التعلم الآن</span>
+          <span style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #ffed4e, #ffd700); opacity: 0; transition: opacity 0.3s ease; z-index: 1;"></span>
+        </a>
+        {% if not user.is_authenticated %}
+          <a href="{% url 'users:register' %}" class="btn btn-outline btn-lg" style="background: rgba(255, 215, 0, 0.1); color: #ffd700; border: 2px solid #ffd700; padding: 1.2rem 3rem; font-size: 1.2rem; font-weight: 600; border-radius: 50px; transition: all 0.3s ease; backdrop-filter: blur(5px);">
+            سجل مجاناً
+          </a>
+        {% else %}
+          <a href="{% url 'learning:my_courses' %}" class="btn btn-outline btn-lg" style="background: rgba(255, 215, 0, 0.1); color: #ffd700; border: 2px solid #ffd700; padding: 1.2rem 3rem; font-size: 1.2rem; font-weight: 600; border-radius: 50px; transition: all 0.3s ease; backdrop-filter: blur(5px);">
+            استكمل تعلمك
+          </a>
+        {% endif %}
+      </div>
+      
+      <!-- شريط الشركاء المصغر -->
+      <div class="mini-partners" style="margin-top: 4rem; opacity: 0.7;">
+        <p style="color: #a0aec0; font-size: 0.9rem; margin-bottom: 1rem;">يثق بنا</p>
+        <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; align-items: center;">
+          <div style="filter: brightness(0) invert(1); opacity: 0.7; height: 30px;">KPMG</div>
+          <div style="filter: brightness(0) invert(1); opacity: 0.7; height: 30px;">Deloitte</div>
+          <div style="filter: brightness(0) invert(1); opacity: 0.7; height: 30px;">EY</div>
+          <div style="filter: brightness(0) invert(1); opacity: 0.7; height: 30px;">PwC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- أشكال هندسية للزينة -->
+  <div class="decorative-shape" style="position: absolute; bottom: -50px; left: 0; width: 100%; height: 100px; background: #0f0f23; transform: skewY(-3deg); z-index: 3;"></div>
+  
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+    
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
+      to { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.8)); }
+    }
+    
+    @keyframes pulse {
+      from { opacity: 0.5; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
+    }
+    
+    .btn-primary:hover span:last-child {
+      opacity: 1;
+    }
+    
+    .btn-outline:hover {
+      background: rgba(255, 215, 0, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+    }
+    
+    .hero-section {
+      clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+    }
+  </style>
+</section>
+
+<!-- قسم المميزات بتصميم إبداعي -->
+<section class="features-section section" style="background: linear-gradient(135deg, #0f0f23 0%, #16213e 100%); padding: 8rem 0; position: relative; overflow: hidden;">
+  <!-- أشكال زخرفية متحركة -->
+  <div class="floating-shapes">
+    <div class="shape shape-1" style="position: absolute; top: 10%; left: 5%; width: 300px; height: 300px; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; background: linear-gradient(45deg, rgba(255, 215, 0, 0.03), rgba(255, 237, 78, 0.05)); filter: blur(40px); animation: float-slow 15s infinite alternate ease-in-out;"></div>
+    <div class="shape shape-2" style="position: absolute; bottom: 10%; right: 5%; width: 250px; height: 250px; border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; background: linear-gradient(45deg, rgba(255, 215, 0, 0.03), rgba(255, 237, 78, 0.05)); filter: blur(40px); animation: float-slow 12s infinite alternate-reverse ease-in-out;"></div>
+  </div>
+  
+  <!-- خطوط متوهجة -->
+  <div class="glowing-lines">
+    <div class="line line-1" style="position: absolute; top: 20%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent); animation: pulse-line 4s infinite;"></div>
+    <div class="line line-2" style="position: absolute; bottom: 30%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent); animation: pulse-line 5s infinite 1s;"></div>
+  </div>
+  
+  <div class="container">
+    <div class="section-header" style="text-align: center; margin-bottom: 5rem; position: relative;">
+      <!-- شعار تمكن -->
+      <div class="logo-accent" style="width: 80px; height: 80px; margin: 0 auto 2rem; position: relative;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, rgba(255,215,0,0) 70%); animation: pulse 3s infinite alternate;"></div>
+        <img src="/static/images/logo.png" alt="تمكن" style="width: 100%; height: 100%; object-fit: contain; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));">
+      </div>
+      
+      <h2 class="section-title" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; display: inline-block;">
+        لماذا تختار <span style="position: relative; display: inline-block;">تمكن
+          <span style="position: absolute; bottom: -5px; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #ffd700, transparent); border-radius: 3px;"></span>
+        </span>؟
+      </h2>
+      <p class="section-subtitle" style="font-size: 1.5rem; color: #a0aec0; max-width: 700px; margin: 0 auto; line-height: 1.6;">
+        منهجية تعليمية متخصصة تجعلك محاسباً محترفاً في أقصر وقت مع شهادات معتمدة
+      </p>
+    </div>
+    
+    <!-- نظام الأيقونات المتحركة -->
+    <div class="icon-orbit" style="position: relative; width: 200px; height: 200px; margin: 0 auto 5rem;">
+      <div class="orbit-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, rgba(255,215,0,0) 70%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <img src="/static/images/logo.png" alt="تمكن" style="width: 60px; height: 60px; object-fit: contain; filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));">
+      </div>
+      <div class="orbit-path" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px dashed rgba(255, 215, 0, 0.3); border-radius: 50%; animation: rotate 20s linear infinite;"></div>
+      <div class="orbit-icon orbit-icon-1" style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); animation: orbit-float 5s ease-in-out infinite;">
+        <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: #1a1a2e;"></i>
+      </div>
+      <div class="orbit-icon orbit-icon-2" style="position: absolute; top: 50%; right: 0; transform: translate(50%, -50%); width: 50px; height: 50px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(102, 126, 234, 0.4); animation: orbit-float 5s ease-in-out infinite 1s;">
+        <i class="fas fa-certificate" style="font-size: 1.5rem; color: white;"></i>
+      </div>
+      <div class="orbit-icon orbit-icon-3" style="position: absolute; bottom: 0; left: 50%; transform: translate(-50%, 50%); width: 50px; height: 50px; background: linear-gradient(45deg, #f093fb, #f5576c); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(240, 147, 251, 0.4); animation: orbit-float 5s ease-in-out infinite 2s;">
+        <i class="fas fa-laptop-code" style="font-size: 1.5rem; color: white;"></i>
+      </div>
+      <div class="orbit-icon orbit-icon-4" style="position: absolute; top: 50%; left: 0; transform: translate(-50%, -50%); width: 50px; height: 50px; background: linear-gradient(45deg, #4facfe, #00f2fe); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(79, 172, 254, 0.4); animation: orbit-float 5s ease-in-out infinite 3s;">
+        <i class="fas fa-headset" style="font-size: 1.5rem; color: white;"></i>
+      </div>
+    </div>
+    
+    <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-top: 3rem;">
+      <div class="feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; text-align: center; border: 1px solid rgba(255, 215, 0, 0.1); transition: all 0.4s ease; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+        <!-- خلفية متوهجة -->
+        <div class="card-glow" style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at center, rgba(255, 215, 0, 0.03) 0%, transparent 70%); z-index: 0;"></div>
+        
+        <!-- زخرفة الزاوية -->
+        <div class="corner-accent" style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; overflow: hidden;">
+          <div style="position: absolute; top: -40px; right: -40px; width: 80px; height: 80px; background: linear-gradient(135deg, #ffd700, transparent); opacity: 0.2; transform: rotate(45deg);"></div>
+        </div>
+        
+        <div class="feature-icon" style="width: 90px; height: 90px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 20px; transform: rotate(45deg); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; position: relative; z-index: 1; box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);">
+          <i class="fas fa-graduation-cap" style="font-size: 2.2rem; color: #1a1a2e; transform: rotate(-45deg);"></i>
+        </div>
+        <h3 class="feature-title" style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.2rem; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; z-index: 1;">خبراء محاسبة معتمدين</h3>
+        <p class="feature-text" style="color: #cbd5e0; line-height: 1.8; font-size: 1.1rem; position: relative; z-index: 1;">
+          تعلم من محاسبين محترفين معتمدين لديهم خبرة عملية تزيد عن 15 عاماً في كبرى الشركات العالمية
+        </p>
+        <div class="feature-badge" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 50px; color: #ffd700; font-size: 0.9rem; margin-top: 1.5rem; border: 1px solid rgba(255, 215, 0, 0.2);">15+ سنة خبرة</div>
+      </div>
+      
+      <div class="feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; text-align: center; border: 1px solid rgba(102, 126, 234, 0.1); transition: all 0.4s ease; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+        <!-- خلفية متوهجة -->
+        <div class="card-glow" style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at center, rgba(102, 126, 234, 0.03) 0%, transparent 70%); z-index: 0;"></div>
+        
+        <!-- زخرفة الزاوية -->
+        <div class="corner-accent" style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; overflow: hidden;">
+          <div style="position: absolute; top: -40px; right: -40px; width: 80px; height: 80px; background: linear-gradient(135deg, #667eea, transparent); opacity: 0.2; transform: rotate(45deg);"></div>
+        </div>
+        
+        <div class="feature-icon" style="width: 90px; height: 90px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 20px; transform: rotate(45deg); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; position: relative; z-index: 1; box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);">
+          <i class="fas fa-certificate" style="font-size: 2.2rem; color: white; transform: rotate(-45deg);"></i>
+        </div>
+        <h3 class="feature-title" style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.2rem; background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; z-index: 1;">شهادات معتمدة</h3>
+        <p class="feature-text" style="color: #cbd5e0; line-height: 1.8; font-size: 1.1rem; position: relative; z-index: 1;">
+          احصل على شهادات معتمدة من وزارة التعليم تؤهلك لسوق العمل وتفتح لك أبواب النجاح المهني
+        </p>
+        <div class="feature-badge" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 50px; color: #667eea; font-size: 0.9rem; margin-top: 1.5rem; border: 1px solid rgba(102, 126, 234, 0.2);">معتمدة رسمياً</div>
+      </div>
+      
+      <div class="feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; text-align: center; border: 1px solid rgba(240, 147, 251, 0.1); transition: all 0.4s ease; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+        <!-- خلفية متوهجة -->
+        <div class="card-glow" style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at center, rgba(240, 147, 251, 0.03) 0%, transparent 70%); z-index: 0;"></div>
+        
+        <!-- زخرفة الزاوية -->
+        <div class="corner-accent" style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; overflow: hidden;">
+          <div style="position: absolute; top: -40px; right: -40px; width: 80px; height: 80px; background: linear-gradient(135deg, #f093fb, transparent); opacity: 0.2; transform: rotate(45deg);"></div>
+        </div>
+        
+        <div class="feature-icon" style="width: 90px; height: 90px; background: linear-gradient(45deg, #f093fb, #f5576c); border-radius: 20px; transform: rotate(45deg); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; position: relative; z-index: 1; box-shadow: 0 10px 20px rgba(240, 147, 251, 0.3);">
+          <i class="fas fa-laptop-code" style="font-size: 2.2rem; color: white; transform: rotate(-45deg);"></i>
+        </div>
+        <h3 class="feature-title" style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.2rem; background: linear-gradient(45deg, #f093fb, #f5576c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; z-index: 1;">تدريب عملي مكثف</h3>
+        <p class="feature-text" style="color: #cbd5e0; line-height: 1.8; font-size: 1.1rem; position: relative; z-index: 1;">
+          تدريبات عملية على برامج المحاسبة الحديثة مثل SAP وOracle وQuickBooks مع مشاريع واقعية
+        </p>
+        <div class="feature-badge" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(240, 147, 251, 0.1); border-radius: 50px; color: #f093fb; font-size: 0.9rem; margin-top: 1.5rem; border: 1px solid rgba(240, 147, 251, 0.2);">تطبيقات عملية</div>
+      </div>
+      
+      <div class="feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; text-align: center; border: 1px solid rgba(79, 172, 254, 0.1); transition: all 0.4s ease; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+        <!-- خلفية متوهجة -->
+        <div class="card-glow" style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at center, rgba(79, 172, 254, 0.03) 0%, transparent 70%); z-index: 0;"></div>
+        
+        <!-- زخرفة الزاوية -->
+        <div class="corner-accent" style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; overflow: hidden;">
+          <div style="position: absolute; top: -40px; right: -40px; width: 80px; height: 80px; background: linear-gradient(135deg, #4facfe, transparent); opacity: 0.2; transform: rotate(45deg);"></div>
+        </div>
+        
+        <div class="feature-icon" style="width: 90px; height: 90px; background: linear-gradient(45deg, #4facfe, #00f2fe); border-radius: 20px; transform: rotate(45deg); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; position: relative; z-index: 1; box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);">
+          <i class="fas fa-headset" style="font-size: 2.2rem; color: white; transform: rotate(-45deg);"></i>
+        </div>
+        <h3 class="feature-title" style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.2rem; background: linear-gradient(45deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; z-index: 1;">دعم مستمر 24/7</h3>
+        <p class="feature-text" style="color: #cbd5e0; line-height: 1.8; font-size: 1.1rem; position: relative; z-index: 1;">
+          فريق دعم متخصص متاح على مدار الساعة للإجابة على استفساراتك ومساعدتك في رحلة التعلم
+        </p>
+        <div class="feature-badge" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(79, 172, 254, 0.1); border-radius: 50px; color: #4facfe; font-size: 0.9rem; margin-top: 1.5rem; border: 1px solid rgba(79, 172, 254, 0.2);">متاح 24/7</div>
+      </div>
+    </div>
+    
+    <style>
+      @keyframes orbit-float {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); }
+        50% { transform: translate(-50%, -50%) scale(1.1); }
+      }
+      
+      @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      
+      @keyframes pulse-line {
+        0% { opacity: 0; transform: scaleX(0.5); }
+        50% { opacity: 0.5; transform: scaleX(1); }
+        100% { opacity: 0; transform: scaleX(0.5); }
+      }
+      
+      @keyframes float-slow {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(20px, -20px) rotate(5deg); }
+        50% { transform: translate(0, -40px) rotate(0deg); }
+        75% { transform: translate(-20px, -20px) rotate(-5deg); }
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border-color: currentColor;
+      }
+      
+      .feature-card:hover .feature-icon {
+        transform: rotate(0deg) scale(1.1);
+      }
+      
+      .feature-card:hover .feature-icon i {
+        transform: rotate(0deg);
+      }
+      
+      .orbit-icon-1 { transform: translate(-50%, -50%); }
+      .orbit-icon-2 { transform: translate(50%, -50%); }
+      .orbit-icon-3 { transform: translate(-50%, 50%); }
+      .orbit-icon-4 { transform: translate(-50%, -50%); }
+      
+      .orbit-icon-1 { transform: translate(-50%, -50%); }
+      .orbit-icon-2 { transform: translate(50%, -50%); }
+      .orbit-icon-3 { transform: translate(-50%, 50%); }
+      .orbit-icon-4 { transform: translate(-50%, -50%); }
+    </style>
+  </div>
+</section>
+
+<!-- قسم الدورات المتخصصة بتصميم إبداعي -->
+<section class="courses-section section" style="background: linear-gradient(135deg, #0f0f23 0%, #16213e 100%); padding: 8rem 0; position: relative; overflow: hidden;">
+  <!-- أشكال زخرفية متحركة -->
+  <div class="floating-shapes">
+    <div class="shape shape-3" style="position: absolute; top: 20%; right: 10%; width: 200px; height: 200px; border-radius: 30% 70% 50% 50% / 30% 30% 70% 70%; background: linear-gradient(45deg, rgba(255, 215, 0, 0.03), rgba(255, 237, 78, 0.05)); filter: blur(40px); animation: float-slow 18s infinite alternate-reverse ease-in-out;"></div>
+    <div class="shape shape-4" style="position: absolute; bottom: 15%; left: 10%; width: 250px; height: 250px; border-radius: 50% 50% 70% 30% / 50% 50% 30% 60%; background: linear-gradient(45deg, rgba(102, 126, 234, 0.03), rgba(118, 75, 162, 0.05)); filter: blur(40px); animation: float-slow 15s infinite alternate ease-in-out;"></div>
+  </div>
+  
+  <!-- شبكة خلفية -->
+  <div class="grid-pattern" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.5; z-index: 1;"></div>
+  
+  <div class="container" style="position: relative; z-index: 2;">
+    <div class="section-header" style="text-align: center; margin-bottom: 5rem; position: relative;">
+      <!-- شارة مميزة -->
+      <div class="badge" style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 50px; color: #ffd700; font-size: 1rem; margin-bottom: 1.5rem; border: 1px solid rgba(255, 215, 0, 0.2); animation: fadeIn 1s ease-out;">
+        <i class="fas fa-star" style="margin-left: 0.5rem;"></i>الأكثر طلباً
+      </div>
+      
+      <h2 class="section-title" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; display: inline-block;">
+        دوراتنا المتخصصة
+        <div class="title-accent" style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 150px; height: 4px; background: linear-gradient(90deg, transparent, #ffd700, transparent); border-radius: 4px;"></div>
+      </h2>
+      <p class="section-subtitle" style="font-size: 1.5rem; color: #a0aec0; max-width: 700px; margin: 0 auto 3rem; line-height: 1.6;">
+        دورات احترافية في المحاسبة تؤهلك لسوق العمل فوراً مع شهادات معتمدة
+      </p>
+      
+      <!-- أزرار التصفية -->
+      <div class="filter-buttons" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 3rem;">
+        <button class="filter-btn active" style="padding: 0.8rem 1.5rem; background: rgba(255, 215, 0, 0.2); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; color: #ffd700; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">جميع الدورات</button>
+        <button class="filter-btn" style="padding: 0.8rem 1.5rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; color: #a0aec0; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">المحاسبة المالية</button>
+        <button class="filter-btn" style="padding: 0.8rem 1.5rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; color: #a0aec0; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">المحاسبة الإدارية</button>
+        <button class="filter-btn" style="padding: 0.8rem 1.5rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; color: #a0aec0; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">التدقيق المالي</button>
+      </div>
+    </div>
+    
+    <div class="courses-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem;">
+      <!-- دورة المحاسبة المالية -->
+      <div class="course-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); border-radius: 25px; overflow: hidden; border: 1px solid rgba(255, 215, 0, 0.1); transition: all 0.4s ease; position: relative; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+        <!-- شارة الدورة -->
+        <div class="course-badge" style="position: absolute; top: 20px; right: 20px; padding: 0.5rem 1rem; background: rgba(255, 215, 0, 0.9); color: #1a1a2e; font-size: 0.9rem; font-weight: 600; border-radius: 50px; z-index: 10;">الأكثر شعبية</div>
+        
+        <!-- صورة الدورة مع تأثير التدرج -->
+        <div class="card-image" style="height: 200px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #ffd700, #ffed4e); opacity: 0.8; z-index: 1;"></div>
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://via.placeholder.com/500x300'); background-size: cover; background-position: center; mix-blend-mode: multiply; z-index: 0;"></div>
+          <div class="card-icon" style="position: absolute; bottom: -30px; right: 30px; width: 80px; height: 80px; background: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #1a1a2e; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); z-index: 2; transform: rotate(10deg);">
+            <i class="fas fa-chart-line"></i>
+          </div>
+        </div>
+        
+        <div class="card-body" style="padding: 2.5rem 2rem 2rem;">
+          <div class="course-meta" style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; color: #a0aec0; font-size: 0.9rem;">
+            <div class="meta-item">
+              <i class="fas fa-clock" style="margin-left: 0.5rem;"></i>12 أسبوع
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-user-graduate" style="margin-left: 0.5rem;"></i>1,240 متعلم
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-star" style="margin-left: 0.5rem; color: #ffd700;"></i>4.9
+            </div>
+          </div>
+          
+          <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.2rem; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">دورة المحاسبة المالية</h3>
+          
+          <div class="course-features" style="margin-bottom: 2rem;">
+            <div class="feature-item" style="display: flex; align-items: center; margin-bottom: 1rem; color: #cbd5e0;">
+              <i class="fas fa-check-circle" style="color: #ffd700; margin-left: 0.8rem; font-size: 1.1rem;"></i>
+              <span>مفاهيم المحاسبة المالية الأساسية والمتقدمة</span>
+            </div>
+            <div class="feature-item" style="display: flex; align-items: center; margin-bottom: 1rem; color: #cbd5e0;">
+              <i class="fas fa-check-circle" style="color: #ffd700; margin-left: 0.8rem; font-size: 1.1rem;"></i>
+              <span>إعداد القوائم المالية (الميزانية العمومية)</span>
+            </div>
+            <div class="feature-item" style="display: flex; align-items: center; margin-bottom: 1rem; color: #cbd5e0;">
+              <i class="fas fa-check-circle" style="color: #ffd700; margin-left: 0.8rem; font-size: 1.1rem;"></i>
+              <span>تحليل الأداء المالي ونسب الربحية</span>
+            </div>
+          </div>
+          
+          <div class="course-footer" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="course-tags" style="display: flex; gap: 0.5rem;">
+              <span class="tag" style="padding: 0.3rem 0.8rem; background: rgba(255, 215, 0, 0.1); border-radius: 20px; color: #ffd700; font-size: 0.8rem; border: 1px solid rgba(255, 215, 0, 0.2);">كوبونات خصم</span>
+              <span class="tag" style="padding: 0.3rem 0.8rem; background: rgba(102, 126, 234, 0.1); border-radius: 20px; color: #667eea; font-size: 0.8rem; border: 1px solid rgba(102, 126, 234, 0.2);">أقساط</span>
+            </div>
+            <a href="{% url 'learning:course_list' %}" class="btn-course" style="padding: 0.8rem 1.5rem; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1a1a2e; border-radius: 50px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-block;">عرض التفاصيل</a>
+          </div>
+        </div>
+      </div>
+            <div class="feature-item" style="display: flex; align-items: center; margin-bottom: 1rem; color: #cbd5e0;">
+              <i class="fas fa-check-circle" style="color: #ffd700; margin-left: 0.5rem;"></i>
+              <span>تدريب عملي على برامج المحاسبة</span>
+            </div>
+          </div>
+          <div class="course-meta" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <span class="duration" style="color: #a0aec0;">
+              <i class="fas fa-clock"></i> 40 ساعة
+            </span>
+            <span class="level" style="background: rgba(255, 215, 0, 0.2); color: #ffd700; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">
+              جميع المستويات
+            </span>
+          </div>
+          <div class="course-footer" style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="price" style="font-size: 2rem; font-weight: 700; color: #ffd700;">3,450 ريال</span>
+            <a href="#" class="btn btn-primary" style="background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1a1a2e; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600;">
+              سجل الآن
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- دورة المحاسبة الإدارية والحكومية -->
+      <div class="course-card reveal" style="background: linear-gradient(135deg, #1a1a2e, #0f0f23); border-radius: 25px; overflow: hidden; border: 2px solid rgba(102, 126, 234, 0.3); transition: all 0.3s ease; position: relative;">
+        <div class="card-header" style="background: linear-gradient(45deg, #667eea, #764ba2); padding: 2rem; text-align: center;">
+          <div class="card-icon" style="width: 80px; height: 80px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2.5rem; color: #667eea;">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 style="font-size: 1.8rem; font-weight: 700; color: white; margin: 0;">دورة المحاسبة الإدارية والحكومية</h3>
+        </div>
+        <div class="card-body" style="padding: 2rem;">
+          <div class="course-features" style="margin-bottom: 2rem;">
+            <div class="feature-item" style="display: flex; align-items: center; margin-bottom: 1rem; color: #cbd5e0;">
+              <i class="fas fa-check-circle" style="color: #667eea; margin-left: 0.5rem;"></i>
+              <span>المحاسبة الإدارية واتخاذ القرارات</span>
+            </div>
+            <div class="feature-item" style="display: flex; align-items: center; margin-bottom: 1rem; color: #cbd5e0;">
+              <i class="fas fa-check-circle" style="color: #667eea; margin-left: 0.5rem;"></i>
+              <span>إعداد الموازنات التخطيطية</span>
+            </div>
+            <div class="feature-item" style="display: flex; align-items: center; margin-bottom: 1rem; color: #cbd5e0;">
+              <i class="fas fa-check-circle" style="color: #667eea; margin-left: 0.5rem;"></i>
+              <span>المحاسبة الحكومية والنظام المالي</span>
+            </div>
+            <div class="feature-item" style="display: flex; align-items: center; margin-bottom: 1rem; color: #cbd5e0;">
+              <i class="fas fa-check-circle" style="color: #667eea; margin-left: 0.5rem;"></i>
+              <span>المراجعة الداخلية والرقابة</span>
+            </div>
+          </div>
+          <div class="course-meta" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <span class="duration" style="color: #a0aec0;">
+              <i class="fas fa-clock"></i> 35 ساعة
+            </span>
+            <span class="level" style="background: rgba(102, 126, 234, 0.2); color: #667eea; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">
+              متوسط - متقدم
+            </span>
+          </div>
+          <div class="course-footer" style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="price" style="font-size: 2rem; font-weight: 700; color: #667eea;">1,199 ريال</span>
+            <a href="#" class="btn btn-primary" style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600;">
+              سجل الآن
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="view-all-courses" style="text-align: center; margin-top: 3rem;">
+      <a href="{% url 'learning:course_list' %}" class="btn-view-all" style="padding: 1rem 2.5rem; background: rgba(255, 215, 0, 0.1); color: #ffd700; border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 50px; font-size: 1.1rem; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-block;">
+        عرض جميع الدورات
+        <i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i>
+      </a>
+    </div>
+    
+    <style>
+      .filter-btn:hover {
+        background: rgba(255, 215, 0, 0.1);
+        color: #ffd700;
+        border-color: rgba(255, 215, 0, 0.3);
+      }
+      
+      .btn-course:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      
+      .btn-view-all:hover {
+        background: rgba(255, 215, 0, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </div>
+</section>
+
+<!-- قسم المميزات التسويقية -->
+<section class="marketing-features-section" style="background: linear-gradient(135deg, #16213e 0%, #0f0f23 100%); padding: 8rem 0; position: relative; overflow: hidden;">
+  <!-- أشكال زخرفية متحركة -->
+  <div class="floating-shapes">
+    <div class="shape shape-5" style="position: absolute; top: 15%; left: 10%; width: 200px; height: 200px; border-radius: 40% 60% 30% 70% / 40% 40% 60% 50%; background: linear-gradient(45deg, rgba(255, 215, 0, 0.03), rgba(255, 237, 78, 0.05)); filter: blur(40px); animation: float-slow 20s infinite alternate ease-in-out;"></div>
+    <div class="shape shape-6" style="position: absolute; bottom: 10%; right: 5%; width: 250px; height: 250px; border-radius: 50% 50% 30% 70% / 50% 30% 70% 50%; background: linear-gradient(45deg, rgba(240, 147, 251, 0.03), rgba(245, 87, 108, 0.05)); filter: blur(40px); animation: float-slow 18s infinite alternate-reverse ease-in-out;"></div>
+  </div>
+  
+  <!-- خطوط متوهجة -->
+  <div class="glowing-lines">
+    <div class="line line-3" style="position: absolute; top: 40%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent); animation: pulse-line 6s infinite 2s;"></div>
+  </div>
+  
+  <div class="container" style="position: relative; z-index: 2;">
+    <div class="section-header" style="text-align: center; margin-bottom: 5rem;">
+      <div class="badge" style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(240, 147, 251, 0.1); border-radius: 50px; color: #f093fb; font-size: 1rem; margin-bottom: 1.5rem; border: 1px solid rgba(240, 147, 251, 0.2); animation: fadeIn 1s ease-out;">
+        <i class="fas fa-gift" style="margin-left: 0.5rem;"></i>حصرياً في تمكن
+      </div>
+      
+      <h2 class="section-title" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; background: linear-gradient(45deg, #f093fb, #f5576c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; display: inline-block;">
+        مميزات فريدة لتجربة تعليمية متكاملة
+        <div class="title-accent" style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 150px; height: 4px; background: linear-gradient(90deg, transparent, #f093fb, transparent); border-radius: 4px;"></div>
+      </h2>
+      <p class="section-subtitle" style="font-size: 1.5rem; color: #a0aec0; max-width: 700px; margin: 0 auto; line-height: 1.6;">
+        نقدم لك باقة من المميزات الحصرية التي تجعل رحلة تعلمك أكثر سهولة ومتعة وفعالية
+      </p>
+    </div>
+    
+    <div class="marketing-features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem;">
+      <!-- كوبونات خصم -->
+      <div class="marketing-feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 215, 0, 0.1); transition: all 0.4s ease;">
+        <div class="feature-icon-wrapper" style="position: relative; width: 70px; height: 70px; margin-bottom: 1.5rem;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 215, 0, 0.1); border-radius: 15px; transform: rotate(10deg);"></div>
+          <div style="position: absolute; top: 5px; left: 5px; width: 100%; height: 100%; background: rgba(255, 215, 0, 0.15); border-radius: 15px; transform: rotate(20deg);"></div>
+          <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #1a1a2e; box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);">
+            <i class="fas fa-tags"></i>
+          </div>
+        </div>
+        
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #ffd700;">كوبونات خصم حصرية</h3>
+        <p style="color: #cbd5e0; line-height: 1.7; margin-bottom: 1.5rem;">
+          استمتع بخصومات حصرية تصل إلى 50% على جميع الدورات من خلال كوبونات موسمية وعروض خاصة للمتعلمين الجدد والمستمرين
+        </p>
+        <div class="feature-highlight" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 50px; color: #ffd700; font-size: 0.9rem; border: 1px solid rgba(255, 215, 0, 0.2);">خصم يصل إلى 50%</div>
+      </div>
+      
+      <!-- عروض مستمرة -->
+      <div class="marketing-feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 1px solid rgba(102, 126, 234, 0.1); transition: all 0.4s ease;">
+        <div class="feature-icon-wrapper" style="position: relative; width: 70px; height: 70px; margin-bottom: 1.5rem;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(102, 126, 234, 0.1); border-radius: 15px; transform: rotate(10deg);"></div>
+          <div style="position: absolute; top: 5px; left: 5px; width: 100%; height: 100%; background: rgba(102, 126, 234, 0.15); border-radius: 15px; transform: rotate(20deg);"></div>
+          <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);">
+            <i class="fas fa-percentage"></i>
+          </div>
+        </div>
+        
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #667eea;">عروض مستمرة</h3>
+        <p style="color: #cbd5e0; line-height: 1.7; margin-bottom: 1.5rem;">
+          عروض موسمية وباقات تعليمية مخفضة على مدار العام، بالإضافة إلى عروض خاصة للمجموعات والشركات مع إمكانية تصميم برامج مخصصة
+        </p>
+        <div class="feature-highlight" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 50px; color: #667eea; font-size: 0.9rem; border: 1px solid rgba(102, 126, 234, 0.2);">عروض موسمية</div>
+      </div>
+      
+      <!-- بنك أسئلة متنوع -->
+      <div class="marketing-feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 1px solid rgba(240, 147, 251, 0.1); transition: all 0.4s ease;">
+        <div class="feature-icon-wrapper" style="position: relative; width: 70px; height: 70px; margin-bottom: 1.5rem;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(240, 147, 251, 0.1); border-radius: 15px; transform: rotate(10deg);"></div>
+          <div style="position: absolute; top: 5px; left: 5px; width: 100%; height: 100%; background: rgba(240, 147, 251, 0.15); border-radius: 15px; transform: rotate(20deg);"></div>
+          <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #f093fb, #f5576c); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; box-shadow: 0 10px 20px rgba(240, 147, 251, 0.3);">
+            <i class="fas fa-question-circle"></i>
+          </div>
+        </div>
+        
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #f093fb;">بنك أسئلة متنوع</h3>
+        <p style="color: #cbd5e0; line-height: 1.7; margin-bottom: 1.5rem;">
+          أكثر من 5000 سؤال وتمرين عملي في مختلف مجالات المحاسبة، مع حلول مفصلة وشروحات تفاعلية تساعدك على التحضير للاختبارات المهنية
+        </p>
+        <div class="feature-highlight" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(240, 147, 251, 0.1); border-radius: 50px; color: #f093fb; font-size: 0.9rem; border: 1px solid rgba(240, 147, 251, 0.2);">+5000 سؤال</div>
+      </div>
+      
+      <!-- بث مباشر -->
+      <div class="marketing-feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 1px solid rgba(79, 172, 254, 0.1); transition: all 0.4s ease;">
+        <div class="feature-icon-wrapper" style="position: relative; width: 70px; height: 70px; margin-bottom: 1.5rem;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(79, 172, 254, 0.1); border-radius: 15px; transform: rotate(10deg);"></div>
+          <div style="position: absolute; top: 5px; left: 5px; width: 100%; height: 100%; background: rgba(79, 172, 254, 0.15); border-radius: 15px; transform: rotate(20deg);"></div>
+          <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #4facfe, #00f2fe); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);">
+            <i class="fas fa-video"></i>
+          </div>
+        </div>
+        
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4facfe;">بث مباشر أسبوعي</h3>
+        <p style="color: #cbd5e0; line-height: 1.7; margin-bottom: 1.5rem;">
+          جلسات بث مباشر أسبوعية مع خبراء المحاسبة لمناقشة أحدث التطورات والإجابة على استفساراتك، مع إمكانية مشاهدة الجلسات المسجلة لاحقاً
+        </p>
+        <div class="feature-highlight" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(79, 172, 254, 0.1); border-radius: 50px; color: #4facfe; font-size: 0.9rem; border: 1px solid rgba(79, 172, 254, 0.2);">تفاعل مباشر</div>
+      </div>
+      
+      <!-- استقبال استفسارات -->
+      <div class="marketing-feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 215, 0, 0.1); transition: all 0.4s ease;">
+        <div class="feature-icon-wrapper" style="position: relative; width: 70px; height: 70px; margin-bottom: 1.5rem;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 215, 0, 0.1); border-radius: 15px; transform: rotate(10deg);"></div>
+          <div style="position: absolute; top: 5px; left: 5px; width: 100%; height: 100%; background: rgba(255, 215, 0, 0.15); border-radius: 15px; transform: rotate(20deg);"></div>
+          <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #1a1a2e; box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);">
+            <i class="fas fa-comments"></i>
+          </div>
+        </div>
+        
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #ffd700;">استقبال استفسارات</h3>
+        <p style="color: #cbd5e0; line-height: 1.7; margin-bottom: 1.5rem;">
+          نظام دعم متكامل للإجابة على جميع استفساراتك خلال 24 ساعة، مع إمكانية التواصل المباشر مع المدربين والخبراء عبر منصة الدردشة المتخصصة
+        </p>
+        <div class="feature-highlight" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 50px; color: #ffd700; font-size: 0.9rem; border: 1px solid rgba(255, 215, 0, 0.2);">رد خلال 24 ساعة</div>
+      </div>
+      
+      <!-- تذكيرات مستمرة -->
+      <div class="marketing-feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 1px solid rgba(102, 126, 234, 0.1); transition: all 0.4s ease;">
+        <div class="feature-icon-wrapper" style="position: relative; width: 70px; height: 70px; margin-bottom: 1.5rem;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(102, 126, 234, 0.1); border-radius: 15px; transform: rotate(10deg);"></div>
+          <div style="position: absolute; top: 5px; left: 5px; width: 100%; height: 100%; background: rgba(102, 126, 234, 0.15); border-radius: 15px; transform: rotate(20deg);"></div>
+          <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);">
+            <i class="fas fa-bell"></i>
+          </div>
+        </div>
+        
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #667eea;">تذكيرات مستمرة</h3>
+        <p style="color: #cbd5e0; line-height: 1.7; margin-bottom: 1.5rem;">
+          نظام تذكيرات ذكي يساعدك على الالتزام بخطة دراستك، مع إشعارات مخصصة للمواعيد المهمة والاختبارات والجلسات المباشرة القادمة
+        </p>
+        <div class="feature-highlight" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 50px; color: #667eea; font-size: 0.9rem; border: 1px solid rgba(102, 126, 234, 0.2);">تخصيص كامل</div>
+      </div>
+      
+      <!-- إمكانية أقساط -->
+      <div class="marketing-feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 1px solid rgba(240, 147, 251, 0.1); transition: all 0.4s ease;">
+        <div class="feature-icon-wrapper" style="position: relative; width: 70px; height: 70px; margin-bottom: 1.5rem;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(240, 147, 251, 0.1); border-radius: 15px; transform: rotate(10deg);"></div>
+          <div style="position: absolute; top: 5px; left: 5px; width: 100%; height: 100%; background: rgba(240, 147, 251, 0.15); border-radius: 15px; transform: rotate(20deg);"></div>
+          <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #f093fb, #f5576c); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; box-shadow: 0 10px 20px rgba(240, 147, 251, 0.3);">
+            <i class="fas fa-credit-card"></i>
+          </div>
+        </div>
+        
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #f093fb;">إمكانية أقساط مرنة</h3>
+        <p style="color: #cbd5e0; line-height: 1.7; margin-bottom: 1.5rem;">
+          خيارات دفع مرنة تتيح لك تقسيط رسوم الدورات على دفعات شهرية ميسرة بدون فوائد، مع إمكانية الاستفادة من الدورة فوراً
+        </p>
+        <div class="feature-highlight" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(240, 147, 251, 0.1); border-radius: 50px; color: #f093fb; font-size: 0.9rem; border: 1px solid rgba(240, 147, 251, 0.2);">بدون فوائد</div>
+      </div>
+      
+      <!-- ميزة إضافية: شهادات معتمدة -->
+      <div class="marketing-feature-card reveal" style="background: rgba(26, 26, 46, 0.5); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 1px solid rgba(79, 172, 254, 0.1); transition: all 0.4s ease;">
+        <div class="feature-icon-wrapper" style="position: relative; width: 70px; height: 70px; margin-bottom: 1.5rem;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(79, 172, 254, 0.1); border-radius: 15px; transform: rotate(10deg);"></div>
+          <div style="position: absolute; top: 5px; left: 5px; width: 100%; height: 100%; background: rgba(79, 172, 254, 0.15); border-radius: 15px; transform: rotate(20deg);"></div>
+          <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #4facfe, #00f2fe); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);">
+            <i class="fas fa-award"></i>
+          </div>
+        </div>
+        
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4facfe;">شهادات معتمدة دولياً</h3>
+        <p style="color: #cbd5e0; line-height: 1.7; margin-bottom: 1.5rem;">
+          شهادات إتمام معتمدة من هيئات محاسبية دولية تعزز سيرتك الذاتية وتزيد فرصك في سوق العمل، مع إمكانية التحقق الإلكتروني
+        </p>
+        <div class="feature-highlight" style="display: inline-block; padding: 0.5rem 1rem; background: rgba(79, 172, 254, 0.1); border-radius: 50px; color: #4facfe; font-size: 0.9rem; border: 1px solid rgba(79, 172, 254, 0.2);">اعتماد دولي</div>
+      </div>
+    </div>
+    
+    <div class="cta-container" style="text-align: center; margin-top: 5rem;">
+      <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem; color: white;">ابدأ رحلة التعلم الآن واستفد من جميع المميزات الحصرية</h3>
+      <div class="cta-buttons" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+        <a href="{% url 'learning:course_list' %}" class="btn-primary" style="padding: 1.2rem 3rem; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1a1a2e; border-radius: 50px; font-size: 1.2rem; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-block; box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);">
+          استكشف الدورات
+        </a>
+        <a href="{% url 'learning:contact' %}" class="btn-secondary" style="padding: 1.2rem 3rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: white; border-radius: 50px; font-size: 1.2rem; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-block; backdrop-filter: blur(5px);">
+          تواصل معنا
+        </a>
+      </div>
+    </div>
+    
+    <style>
+      .marketing-feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border-color: currentColor;
+      }
+      
+      .btn-primary:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
+      }
+      
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px);
+      }
+    </style>
+  </div>
+</section>
+
+<!-- قسم قصص النجاح المبدع -->
+<section class="testimonials-section section" style="background: #0f0f23; padding: 6rem 0;">
+  <div class="container">
+    <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+      <h2 class="section-title" style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+        قصص نجاح حقيقية
+      </h2>
+      <p class="section-subtitle" style="font-size: 1.3rem; color: #a0aec0;">
+        شاهد كيف غيرت دوراتنا حياة متعلمينا
+      </p>
+    </div>
+    
+    <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+      <!-- شهادة المتعلم الأول -->
+      <div class="testimonial-card reveal" style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 25px; padding: 2.5rem; position: relative; overflow: hidden; border: 1px solid rgba(255, 215, 0, 0.2);">
+        <div class="quote-icon" style="position: absolute; top: 1rem; right: 1rem; font-size: 4rem; color: rgba(255, 215, 0, 0.1);">
+          <i class="fas fa-quote-right"></i>
+        </div>
+        <div class="testimonial-header" style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+          <div class="avatar" style="width: 60px; height: 60px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 1rem; font-size: 1.5rem; color: #1a1a2e; font-weight: bold;">
+            أ
+          </div>
+          <div class="author-info">
+            <h4 style="font-size: 1.2rem; font-weight: 600; color: #ffd700; margin: 0;">أحمد محمد</h4>
+            <p style="color: #a0aec0; margin: 0.25rem 0;">محاسب مالي - الرياض</p>
+            <div class="rating" style="color: #ffd700;">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="testimonial-text" style="color: #e2e8f0; line-height: 1.8; font-size: 1.1rem; margin-bottom: 1rem;">
+          "بعد إكمال دورة المحاسبة المالية مع تمكن، تمكنت من الحصول على وظيفة محاسب في إحدى الشركات الكبرى براتب ممتاز. المحتوى كان شامل وعملي، والمدرب كان خبير ومتفهم لاحتياجات السوق."
+        </p>
+        <div class="achievement" style="background: rgba(255, 215, 0, 0.1); padding: 1rem; border-radius: 15px; border-left: 4px solid #ffd700;">
+          <p style="color: #ffd700; font-weight: 600; margin: 0;">الإنجاز: ترقية إلى محاسب أول خلال 6 أشهر</p>
+        </div>
+      </div>
+      
+      <!-- شهادة المتعلم الثاني -->
+      <div class="testimonial-card reveal" style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 25px; padding: 2.5rem; position: relative; overflow: hidden; border: 1px solid rgba(102, 126, 234, 0.2);">
+        <div class="quote-icon" style="position: absolute; top: 1rem; right: 1rem; font-size: 4rem; color: rgba(102, 126, 234, 0.1);">
+          <i class="fas fa-quote-right"></i>
+        </div>
+        <div class="testimonial-header" style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+          <div class="avatar" style="width: 60px; height: 60px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 1rem; font-size: 1.5rem; color: white; font-weight: bold;">
+            س
+          </div>
+          <div class="author-info">
+            <h4 style="font-size: 1.2rem; font-weight: 600; color: #667eea; margin: 0;">سارة العمري</h4>
+            <p style="color: #a0aec0; margin: 0.25rem 0;">محاسبة إدارية - جدة</p>
+            <div class="rating" style="color: #ffd700;">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <p class="testimonial-text" style="color: #e2e8f0; line-height: 1.8; font-size: 1.1rem; margin-bottom: 1rem;">
+          "دورة المحاسبة الإدارية غيرت مفهومي تماماً عن عملية اتخاذ القرارات المالية. الآن أستطيع تحليل التكاليف وإعداد الموازنات بدقة. أنصح كل من يريد التميز في مجال المحاسبة بالانضمام لتمكن."
+        </p>
+        <div class="achievement" style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 15px; border-left: 4px solid #667eea;">
+          <p style="color: #667eea; font-weight: 600; margin: 0;">الإنجاز: ترقية إلى مديرة قسم المالية</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم الشركاء بتصميم إبداعي -->
+<section class="partners-section section" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 6rem 0;">
+  <div class="container">
+    <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+      <h2 class="section-title" style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+        شركاؤنا في التميز
+      </h2>
+      <p class="section-subtitle" style="font-size: 1.3rem; color: #a0aec0;">
+        نفخر بالتعاون مع كبرى المؤسسات والشركات
+      </p>
+    </div>
+    
+    <div class="partners-showcase" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; align-items: center;">
+      <div class="partner-card reveal" style="background: linear-gradient(135deg, #0f0f23, #1a1a2e); border-radius: 20px; padding: 2rem; text-align: center; border: 1px solid rgba(255, 215, 0, 0.2); transition: all 0.3s ease;">
+        <div class="partner-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, #ffd700, #ffed4e); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; color: #1a1a2e;">
+          <i class="fas fa-university"></i>
+        </div>
+        <h4 style="font-size: 1.2rem; font-weight: 600; color: #ffd700; margin-bottom: 0.5rem;">وزارة المالية</h4>
+        <p style="color: #a0aec0; font-size: 0.9rem;">شريك استراتيجي</p>
+      </div>
+      
+      <div class="partner-card reveal" style="background: linear-gradient(135deg, #0f0f23, #1a1a2e); border-radius: 20px; padding: 2rem; text-align: center; border: 1px solid rgba(102, 126, 234, 0.2); transition: all 0.3s ease;">
+        <div class="partner-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; color: white;">
+          <i class="fas fa-building"></i>
+        </div>
+        <h4 style="font-size: 1.2rem; font-weight: 600; color: #667eea; margin-bottom: 0.5rem;">سابك</h4>
+        <p style="color: #a0aec0; font-size: 0.9rem;">شريك صناعي</p>
+      </div>
+      
+      <div class="partner-card reveal" style="background: linear-gradient(135deg, #0f0f23, #1a1a2e); border-radius: 20px; padding: 2rem; text-align: center; border: 1px solid rgba(240, 147, 251, 0.2); transition: all 0.3s ease;">
+        <div class="partner-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, #f093fb, #f5576c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; color: white;">
+          <i class="fas fa-handshake"></i>
+        </div>
+        <h4 style="font-size: 1.2rem; font-weight: 600; color: #f093fb; margin-bottom: 0.5rem;">الغرفة التجارية</h4>
+        <p style="color: #a0aec0; font-size: 0.9rem;">شريك تنموي</p>
+      </div>
+      
+      <div class="partner-card reveal" style="background: linear-gradient(135deg, #0f0f23, #1a1a2e); border-radius: 20px; padding: 2rem; text-align: center; border: 1px solid rgba(79, 172, 254, 0.2); transition: all 0.3s ease;">
+        <div class="partner-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, #4facfe, #00f2fe); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; color: white;">
+          <i class="fas fa-chart-bar"></i>
+        </div>
+        <h4 style="font-size: 1.2rem; font-weight: 600; color: #4facfe; margin-bottom: 0.5rem;">بنك الراجحي</h4>
+        <p style="color: #a0aec0; font-size: 0.9rem;">شريك مالي</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم الاشتراك في النشرة البريدية -->
+<section class="newsletter-section" style="background: #0f0f23; padding: 4rem 0;">
+  <div class="container">
+    <div class="newsletter-content" style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 30px; padding: 4rem; text-align: center; border: 1px solid rgba(255, 215, 0, 0.2);">
+      <h2 class="newsletter-title" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+        انضم إلى مجتمع المحاسبين المحترفين
+      </h2>
+      <p class="newsletter-text" style="font-size: 1.2rem; color: #a0aec0; margin-bottom: 2rem;">
+        اشترك مجاناً واحصل على آخر أخبار المحاسبة، نصائح الخبراء، وعروضنا الحصرية
+      </p>
+      <form class="newsletter-form" style="max-width: 500px; margin: 0 auto; display: flex; gap: 1rem;">
+        <input type="email" placeholder="أدخل بريدك الإلكتروني" class="form-control" required style="flex: 1; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 25px; padding: 1rem 1.5rem; color: white; font-size: 1rem;">
+        <button type="submit" class="btn btn-primary" style="background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1a1a2e; border: none; padding: 1rem 2rem; border-radius: 25px; font-weight: 600; font-size: 1rem;">
+          اشترك الآن
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- أنيميشن الكشف -->
+<script>
+  // Reveal animation
+  function reveal() {
+    var reveals = document.querySelectorAll('.reveal');
+    
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      var elementVisible = 150;
+      
+      if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add('active');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', reveal);
+  reveal(); // Check on load
+</script>
+
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+  
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Hover effects */
+  .course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .testimonial-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .partner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+</style>
+{% endblock %}
